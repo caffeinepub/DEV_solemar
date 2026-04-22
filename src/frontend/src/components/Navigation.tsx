@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
+import { useInternetIdentity } from "@caffeineai/core-infrastructure";
 import { Link } from "@tanstack/react-router";
-import { Settings, Waves } from "lucide-react";
+import { LogIn, LogOut, Settings, Waves } from "lucide-react";
 import { useIsAdmin } from "../hooks/use-admin";
 
 interface NavigationProps {
@@ -11,6 +12,8 @@ interface NavigationProps {
 export function Navigation({ initialized: _initialized }: NavigationProps) {
   // Hook is now self-contained — no external initialized gate needed
   const { isAdmin } = useIsAdmin();
+  const { login, clear, isAuthenticated, isInitializing } =
+    useInternetIdentity();
 
   return (
     <nav className="bg-card border-b border-primary/10 shadow-ambient sticky top-0 z-50">
@@ -39,6 +42,39 @@ export function Navigation({ initialized: _initialized }: NavigationProps) {
               icon={<Settings className="w-3.5 h-3.5" />}
               ocid="nav.settings_link"
             />
+          )}
+          {isInitializing ? (
+            <span className="px-3.5 py-2 text-sm text-muted-foreground">
+              Loading...
+            </span>
+          ) : isAuthenticated ? (
+            <button
+              type="button"
+              onClick={clear}
+              data-ocid="nav.logout_button"
+              className={cn(
+                "flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-body font-medium",
+                "text-muted-foreground hover:text-foreground hover:bg-primary/5",
+                "transition-smooth",
+              )}
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              Logout
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={login}
+              data-ocid="nav.login_button"
+              className={cn(
+                "flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-body font-medium",
+                "text-primary hover:text-primary/80 hover:bg-primary/5",
+                "transition-smooth",
+              )}
+            >
+              <LogIn className="w-3.5 h-3.5" />
+              Login
+            </button>
           )}
         </div>
       </div>

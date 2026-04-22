@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-BddBU-DH.js","assets/button-Bga0t3fv.js","assets/proxy-D9aOIXKz.js","assets/index-CzRbTHXN.js","assets/users-De2S3kk7.js","assets/loader-circle-CxuUcheR.js","assets/index-CO6I-CmK.js","assets/BookingConfirm-DPl80EhO.js","assets/badge-B8iOqo2P.js","assets/circle-check-big-xW-1OdxT.js","assets/twitter-jway8xtl.js","assets/OAuthCallback-DFvZh1Oc.js","assets/circle-x-jN3JJHEn.js","assets/Settings-B2lbRfg9.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-6bmFt2Ux.js","assets/button-CVZ0VXfd.js","assets/proxy-C8BE5iM-.js","assets/index-thPMAjxn.js","assets/users-cbJaT8Eo.js","assets/loader-circle-DNKpErTp.js","assets/index-BAJxPVmM.js","assets/BookingConfirm-C3TYpaYU.js","assets/badge-MfzU4tw2.js","assets/circle-check-big-BTp8LNEg.js","assets/twitter-Be5lgk_q.js","assets/OAuthCallback-DmyPgQUt.js","assets/circle-x-CpXU3CSZ.js","assets/Settings-sZZkXzIP.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -35528,6 +35528,30 @@ const createLucideIcon = (iconName, iconNode) => {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const __iconNode$3 = [
+  ["path", { d: "m10 17 5-5-5-5", key: "1bsop3" }],
+  ["path", { d: "M15 12H3", key: "6jk70r" }],
+  ["path", { d: "M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4", key: "u53s6r" }]
+];
+const LogIn = createLucideIcon("log-in", __iconNode$3);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$2 = [
+  ["path", { d: "m16 17 5-5-5-5", key: "1bji2h" }],
+  ["path", { d: "M21 12H9", key: "dn1m92" }],
+  ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
+];
+const LogOut = createLucideIcon("log-out", __iconNode$2);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const __iconNode$1 = [
   [
     "path",
@@ -35592,6 +35616,7 @@ function useIsAdmin(_initialized) {
 }
 function Navigation({ initialized: _initialized }) {
   const { isAdmin } = useIsAdmin();
+  const { login, clear, isAuthenticated, isInitializing } = useInternetIdentity();
   return /* @__PURE__ */ jsxRuntimeExports.jsx("nav", { className: "bg-card border-b border-primary/10 shadow-ambient sticky top-0 z-50", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto flex items-center justify-between h-16 px-4 md:px-6", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
       Link,
@@ -35614,6 +35639,39 @@ function Navigation({ initialized: _initialized }) {
           label: "Settings",
           icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Settings, { className: "w-3.5 h-3.5" }),
           ocid: "nav.settings_link"
+        }
+      ),
+      isInitializing ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "px-3.5 py-2 text-sm text-muted-foreground", children: "Loading..." }) : isAuthenticated ? /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "button",
+        {
+          type: "button",
+          onClick: clear,
+          "data-ocid": "nav.logout_button",
+          className: cn(
+            "flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-body font-medium",
+            "text-muted-foreground hover:text-foreground hover:bg-primary/5",
+            "transition-smooth"
+          ),
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(LogOut, { className: "w-3.5 h-3.5" }),
+            "Logout"
+          ]
+        }
+      ) : /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "button",
+        {
+          type: "button",
+          onClick: login,
+          "data-ocid": "nav.login_button",
+          className: cn(
+            "flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-body font-medium",
+            "text-primary hover:text-primary/80 hover:bg-primary/5",
+            "transition-smooth"
+          ),
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(LogIn, { className: "w-3.5 h-3.5" }),
+            "Login"
+          ]
         }
       )
     ] })
@@ -35702,10 +35760,10 @@ function Skeleton({ className, ...props }) {
     }
   );
 }
-const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-BddBU-DH.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
-const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-DPl80EhO.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
-const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-DFvZh1Oc.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
-const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-B2lbRfg9.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
+const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-6bmFt2Ux.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
+const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-C3TYpaYU.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
+const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-DmyPgQUt.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
+const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-sZZkXzIP.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
 function PageLoader() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 py-16 space-y-4", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-12 w-64" }),

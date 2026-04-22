@@ -2485,6 +2485,10 @@ video {
   color: oklch(var(--primary-foreground));
 }
 
+.hover\:text-primary\/80:hover {
+  color: oklch(var(--primary) / 0.8);
+}
+
 .hover\:text-sidebar-accent-foreground:hover {
   color: oklch(var(--sidebar-accent-foreground));
 }
