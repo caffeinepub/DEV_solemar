@@ -1,0 +1,20 @@
+{
+  "overview": "Solemar is a vacation rental website for a beautiful seaside flat in Muro Alto, PE, Brasil. Guests can browse the property gallery, check amenities, and book their stay. Each booking automatically posts a tweet celebrating the new guest via Twitter/X OAuth integration.",
+  "features": [
+    "Photo gallery with hotlinked property images",
+    "Booking flow with date picker, guest details, and confirmation code",
+    "Automatic Twitter/X tweet on each new booking via x-client package",
+    "Admin-only Settings page for OAuth Client ID and Twitter connection management",
+    "Warm seaside aesthetic with blues and sandy tones, fully responsive"
+  ],
+  "category": "travel-hospitality",
+  "tags": [
+    "vacation-rental",
+    "booking",
+    "twitter-integration",
+    "seaside",
+    "brasil",
+    "motoko"
+  ],
+  "last_updated": "2026-04-22T15:03:36.299Z"
+}

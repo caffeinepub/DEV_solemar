@@ -1,0 +1,57 @@
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type TwitterStatus = 
+ record {
+   connected: bool;
+   username: opt text;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok: text;
+ };
+type OAuthStartParams = 
+ record {
+   authUrl: text;
+   codeVerifier: text;
+   state: text;
+ };
+type HttpResponse = 
+ record {
+   body: blob;
+   headers: vec record {
+                  text;
+                  text;
+                };
+   status_code: nat16;
+   upgrade: opt bool;
+ };
+type HttpRequest = 
+ record {
+   body: blob;
+   headers: vec record {
+                  text;
+                  text;
+                };
+   method: text;
+   url: text;
+ };
+service : {
+  _initializeAccessControl: () -> ();
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  completeOAuth: (code: text, state: text) -> (Result);
+  createBooking: (checkIn: text, checkOut: text, guestCount: nat, name: 
+   text, email: text) -> (text);
+  disconnectTwitter: () -> ();
+  getCallerUserRole: () -> (UserRole) query;
+  getOAuthStartParams: (redirectUri: text) -> (OAuthStartParams);
+  getTwitterStatus: () -> (TwitterStatus) query;
+  getXClientId: () -> (opt text) query;
+  http_request: (_req: HttpRequest) -> (HttpResponse) query;
+  isCallerAdmin: () -> (bool) query;
+  setXClientId: (clientId: text) -> ();
+}
