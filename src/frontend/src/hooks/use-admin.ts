@@ -19,8 +19,8 @@ export function useIsAdmin(_initialized?: boolean) {
         return false;
       }
     },
-    // Enabled as soon as the actor is ready — no external `initialized` gate needed
-    enabled: !!actor && !isFetching,
+    // Enabled as soon as the actor is ready — isFetching gate removed to avoid query never running
+    enabled: !!actor,
     staleTime: 0,
     retry: 2,
   });
