@@ -10,10 +10,10 @@ import TwitterTypes "types/twitter";
 import BookingApi "mixins/booking-api";
 import TwitterApi "mixins/twitter-api";
 // migration.mo kept in codebase but no longer attached to the actor
-// import Migration "migration";
+// 
 
 actor {
-  var accessControlState = AccessControl.initState();
+  stable var accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);
 
   // — Booking state —
