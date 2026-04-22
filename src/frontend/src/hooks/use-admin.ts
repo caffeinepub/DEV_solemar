@@ -24,7 +24,7 @@ export function useIsAdmin(_initialized?: boolean) {
 
   const { data: isAdmin = false, isLoading } = useQuery({
     // Include the principal text so cache busts when identity changes (login / logout)
-    queryKey: ["isCallerAdmin", principalText],
+    queryKey: ["isCallerAdmin", principalText, !!actor],
     queryFn: async () => {
       if (!actor) {
         console.log("[Admin] queryFn: no actor, returning false");
