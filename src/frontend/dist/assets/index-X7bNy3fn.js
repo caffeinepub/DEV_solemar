@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-6bmFt2Ux.js","assets/button-CVZ0VXfd.js","assets/proxy-C8BE5iM-.js","assets/index-thPMAjxn.js","assets/users-cbJaT8Eo.js","assets/loader-circle-DNKpErTp.js","assets/index-BAJxPVmM.js","assets/BookingConfirm-C3TYpaYU.js","assets/badge-MfzU4tw2.js","assets/circle-check-big-BTp8LNEg.js","assets/twitter-Be5lgk_q.js","assets/OAuthCallback-DmyPgQUt.js","assets/circle-x-CpXU3CSZ.js","assets/Settings-sZZkXzIP.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-BpUE4mCY.js","assets/button-DK4PEaGc.js","assets/proxy-DQWC9UtL.js","assets/index-BOnUl835.js","assets/users-LYx9EW1T.js","assets/loader-circle-BqNBZDc6.js","assets/index-dF2cEc6X.js","assets/BookingConfirm-o5aWpaoD.js","assets/badge-C5gvT9UV.js","assets/circle-check-big-CifAsBZL.js","assets/twitter-BLeN2FBZ.js","assets/OAuthCallback-CI0HX_4c.js","assets/circle-x-DWwufeZd.js","assets/Settings-DXf-Ls4F.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -35595,15 +35595,45 @@ const __iconNode = [
 const Waves = createLucideIcon("waves", __iconNode);
 function useIsAdmin(_initialized) {
   const { actor, isFetching } = useBackend();
+  const { identity } = useInternetIdentity();
+  const principalText = (identity == null ? void 0 : identity.getPrincipal().toText()) ?? "anonymous";
+  console.log(
+    "[Admin] useIsAdmin called — actor:",
+    !!actor,
+    "principal:",
+    principalText,
+    "isFetching:",
+    isFetching
+  );
   const { data: isAdmin = false, isLoading } = useQuery({
-    // queryKey no longer includes `initialized` — avoids stale cache mismatch
-    queryKey: ["isCallerAdmin", !!actor],
+    // Include the principal text so cache busts when identity changes (login / logout)
+    queryKey: ["isCallerAdmin", principalText],
     queryFn: async () => {
-      if (!actor) return false;
+      if (!actor) {
+        console.log("[Admin] queryFn: no actor, returning false");
+        return false;
+      }
       try {
+        console.log(
+          "[Admin] queryFn: calling _initializeAccessControl() for principal:",
+          principalText
+        );
         await actor._initializeAccessControl();
-        return await actor.isCallerAdmin();
-      } catch {
+        const result = await actor.isCallerAdmin();
+        console.log(
+          "[Admin] isCallerAdmin result:",
+          result,
+          "for principal:",
+          principalText
+        );
+        return result;
+      } catch (error) {
+        console.log(
+          "[Admin] isCallerAdmin error:",
+          error,
+          "for principal:",
+          principalText
+        );
         return false;
       }
     },
@@ -35760,10 +35790,10 @@ function Skeleton({ className, ...props }) {
     }
   );
 }
-const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-6bmFt2Ux.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
-const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-C3TYpaYU.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
-const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-DmyPgQUt.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
-const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-sZZkXzIP.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
+const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-BpUE4mCY.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
+const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-o5aWpaoD.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
+const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-CI0HX_4c.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
+const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-DXf-Ls4F.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
 function PageLoader() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 py-16 space-y-4", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-12 w-64" }),
