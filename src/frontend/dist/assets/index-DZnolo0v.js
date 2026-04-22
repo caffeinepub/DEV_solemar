@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-CFRHYs3N.js","assets/button-DjKzj_bo.js","assets/proxy-CCbaTwAa.js","assets/index-D0PKKU4J.js","assets/users-CVwrk3ab.js","assets/loader-circle-MBV8gwbk.js","assets/index-BQxNGXbO.js","assets/BookingConfirm-DfDhNgzT.js","assets/badge-DFHurYdh.js","assets/circle-check-big-Cxv3fAwk.js","assets/twitter-O041gv87.js","assets/OAuthCallback-CdSuOiKa.js","assets/circle-x-_wdLdZ8g.js","assets/Settings-DpnMPgw9.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-BJG8TSLA.js","assets/button-BgZ54uhT.js","assets/proxy-EorQ4h3u.js","assets/index-DaT3zcqp.js","assets/users-BQsfMDX5.js","assets/loader-circle-leFFsBS3.js","assets/index-BxEfXzCb.js","assets/BookingConfirm-Zhm2_E3I.js","assets/badge-Dd7fbAr_.js","assets/circle-check-big-9bgOAPKV.js","assets/twitter-D0Biwvzt.js","assets/OAuthCallback-D6Q93lZR.js","assets/circle-x-DPWPi9Oy.js","assets/Settings-DNrLIWHt.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -35569,10 +35569,11 @@ const __iconNode = [
   ]
 ];
 const Waves = createLucideIcon("waves", __iconNode);
-function useIsAdmin(initialized = false) {
+function useIsAdmin(_initialized) {
   const { actor, isFetching } = useBackend();
   const { data: isAdmin = false, isLoading } = useQuery({
-    queryKey: ["isCallerAdmin", !!actor, initialized],
+    // queryKey no longer includes `initialized` — avoids stale cache mismatch
+    queryKey: ["isCallerAdmin", !!actor],
     queryFn: async () => {
       if (!actor) return false;
       try {
@@ -35582,14 +35583,15 @@ function useIsAdmin(initialized = false) {
         return false;
       }
     },
+    // Enabled as soon as the actor is ready — no external `initialized` gate needed
     enabled: !!actor && !isFetching,
     staleTime: 0,
     retry: 2
   });
   return { isAdmin, isLoading: isFetching || isLoading };
 }
-function Navigation({ initialized = false }) {
-  const { isAdmin } = useIsAdmin(initialized);
+function Navigation({ initialized: _initialized }) {
+  const { isAdmin } = useIsAdmin();
   return /* @__PURE__ */ jsxRuntimeExports.jsx("nav", { className: "bg-card border-b border-primary/10 shadow-ambient sticky top-0 z-50", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto flex items-center justify-between h-16 px-4 md:px-6", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
       Link,
@@ -35700,10 +35702,10 @@ function Skeleton({ className, ...props }) {
     }
   );
 }
-const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-CFRHYs3N.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
-const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-DfDhNgzT.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
-const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-CdSuOiKa.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
-const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-DpnMPgw9.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
+const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-BJG8TSLA.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
+const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-Zhm2_E3I.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
+const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-D6Q93lZR.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
+const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-DNrLIWHt.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
 function PageLoader() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 py-16 space-y-4", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-12 w-64" }),

@@ -4,11 +4,13 @@ import { Settings, Waves } from "lucide-react";
 import { useIsAdmin } from "../hooks/use-admin";
 
 interface NavigationProps {
+  // `initialized` prop kept for API compatibility but no longer passed to useIsAdmin
   initialized?: boolean;
 }
 
-export function Navigation({ initialized = false }: NavigationProps) {
-  const { isAdmin } = useIsAdmin(initialized);
+export function Navigation({ initialized: _initialized }: NavigationProps) {
+  // Hook is now self-contained — no external initialized gate needed
+  const { isAdmin } = useIsAdmin();
 
   return (
     <nav className="bg-card border-b border-primary/10 shadow-ambient sticky top-0 z-50">

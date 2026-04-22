@@ -1,11 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { useBackend } from "./use-backend";
 
-export function useIsAdmin(initialized = false) {
+// NOTE: `initialized` param kept for backwards compatibility but no longer used in queryKey.
+// The hook is now self-contained: it calls _initializeAccessControl() then isCallerAdmin()
+// as soon as the actor is available, with no external gate.
+export function useIsAdmin(_initialized?: boolean) {
   const { actor, isFetching } = useBackend();
 
   const { data: isAdmin = false, isLoading } = useQuery({
-    queryKey: ["isCallerAdmin", !!actor, initialized],
+    // queryKey no longer includes `initialized` — avoids stale cache mismatch
+    queryKey: ["isCallerAdmin", !!actor],
     queryFn: async () => {
       if (!actor) return false;
       try {
@@ -15,6 +19,7 @@ export function useIsAdmin(initialized = false) {
         return false;
       }
     },
+    // Enabled as soon as the actor is ready — no external `initialized` gate needed
     enabled: !!actor && !isFetching,
     staleTime: 0,
     retry: 2,
