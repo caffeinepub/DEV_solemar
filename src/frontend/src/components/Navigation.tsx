@@ -1,8 +1,11 @@
 import { cn } from "@/lib/utils";
 import { useInternetIdentity } from "@caffeineai/core-infrastructure";
+import { Principal } from "@dfinity/principal";
 import { Link } from "@tanstack/react-router";
 import { LogIn, Settings, Waves } from "lucide-react";
+import { useState } from "react";
 import { useIsAdmin } from "../hooks/use-admin";
+import { useBackend } from "../hooks/use-backend";
 
 interface NavigationProps {
   // `initialized` prop kept for API compatibility but no longer passed to useIsAdmin
@@ -12,6 +15,7 @@ interface NavigationProps {
 export function Navigation({ initialized: _initialized }: NavigationProps) {
   // Hook is now self-contained — no external initialized gate needed
   const { isAdmin } = useIsAdmin();
+  const { actor } = useBackend();
   const { login, clear, isAuthenticated, isInitializing, identity } =
     useInternetIdentity();
   // Anonymous principal constant — guard logout button from showing for unauthenticated actors
@@ -19,6 +23,24 @@ export function Navigation({ initialized: _initialized }: NavigationProps) {
   // Anonymous principal — guard both canonical form and "anonymous" string
   const isAnonymousPrincipal =
     principalText === "2vxsx-fae" || principalText === "anonymous";
+
+  const [claimingAdmin, setClaimingAdmin] = useState(false);
+
+  const handleClaimAdmin = async () => {
+    if (!actor) return;
+    setClaimingAdmin(true);
+    try {
+      await actor.forceSetAdmin(Principal.fromText(principalText));
+      console.log(
+        "[Admin] forceSetAdmin complete — reload to see Settings link",
+      );
+      window.location.reload();
+    } catch (err) {
+      console.error("[Admin] forceSetAdmin error:", err);
+    } finally {
+      setClaimingAdmin(false);
+    }
+  };
 
   return (
     <nav className="bg-card border-b border-primary/10 shadow-ambient sticky top-0 z-50">
@@ -47,6 +69,23 @@ export function Navigation({ initialized: _initialized }: NavigationProps) {
               icon={<Settings className="w-3.5 h-3.5" />}
               ocid="nav.settings_link"
             />
+          )}
+          {/* TEMPORARY: remove after admin slot confirmed — see forceSetAdmin in main.mo */}
+          {actor && !isAnonymousPrincipal && !isAdmin && (
+            <button
+              type="button"
+              onClick={handleClaimAdmin}
+              disabled={claimingAdmin}
+              data-ocid="nav.claim_admin_button"
+              className={cn(
+                "flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-body font-medium",
+                "bg-amber-400 text-amber-950 hover:bg-amber-300",
+                "disabled:opacity-60 disabled:cursor-not-allowed",
+                "transition-smooth",
+              )}
+            >
+              {claimingAdmin ? "Claiming..." : "Claim Admin"}
+            </button>
           )}
           {isInitializing ? (
             <span className="px-3.5 py-2 text-sm text-muted-foreground">
