@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "mopsTomlDepsHash": "7f884f3b897786fa431267ec5c45ee3393d074c495fc933f282d8ec9c6232931",
+  "mopsTomlDepsHash": "310d7a7c5259d7d2696ec6ea01f16d8111d72f7ef599b15c83c21c9504eac09b",
   "deps": {
     "core": "2.4.0",
     "x-client": "0.1.2",
@@ -21,7 +21,8 @@
     "cbor@4.1.0": "4.1.0",
     "xtended-numbers": "2.3.0",
     "sha2@0.1.6": "0.1.6",
-    "sha2": "0.1.14"
+    "sha2": "0.1.14",
+    "caffeineai-authorization": "0.1.1"
   },
   "hashes": {
     "core@2.4.0": {
@@ -941,6 +942,17 @@
       "sha2@0.1.6/src/Sha256.mo": "dc0d0e5a5950f7786648eee417d1a1a3b8d0e48d1faf48ce4af6378fee6f8453",
       "sha2@0.1.6/src/Sha512.mo": "9983910bc2e8e92dffb58d89607f62cc35a243d6cb5f1bd13076f377d0d8d261",
       "sha2@0.1.6/README.md": "968ade7f520180a097085f468d79a2de8d61b3785057e363ed5117a7eba5a56c"
+    },
+    "caffeineai-authorization@0.1.1": {
+      "caffeineai-authorization@0.1.1/rules/no-redeclare-get-caller-user-role.toml": "934befe7ed91e8b7b8d7e9ec583730cbd2965b5f77354cea2770b709c1558093",
+      "caffeineai-authorization@0.1.1/src/MixinAuthorization.mo": "818108e2188d91637eef39e6a9f0358f9958aa38ecec1e34b46fc7376cb6c09c",
+      "caffeineai-authorization@0.1.1/rules/no-redeclare-initialize-access-control.toml": "1ecedde0d8fe2b3d71fa46a20fa721754fcb0591bdb8b6b668b69f2593e120a4",
+      "caffeineai-authorization@0.1.1/mops.toml": "36f8bccb06893e5c6e164e915f5d9e07c255cb59404a6a940b09bfb182f0c7bf",
+      "caffeineai-authorization@0.1.1/README.md": "7df09c051d9943be6cab58bfc0a208425b1d48512ae7f73b898dfed86ec6fd85",
+      "caffeineai-authorization@0.1.1/rules/no-redeclare-is-caller-admin.toml": "10a57bed38437b1db5624f3b7261ee5f5922311b0bd30e01e2007a7edb274946",
+      "caffeineai-authorization@0.1.1/rules/no-redeclare-assign-caller-user-role.toml": "e8669dfe4931aaa4268682877388255342ce2cb2cdafd21a121ddf22ef42b500",
+      "caffeineai-authorization@0.1.1/rules/mixin-authorization-included.toml": "57fa6a81594ea8c12e0a3315c36dec4adf718444b8ef70a11cda1aaa1b11624a",
+      "caffeineai-authorization@0.1.1/src/access-control.mo": "e517d2a028b510d804a633631a15981160def610ea9410dd5a122f92af3c04d8"
     }
   }
 }
