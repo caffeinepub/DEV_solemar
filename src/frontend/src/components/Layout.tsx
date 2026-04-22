@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { useBackend } from "../hooks/use-backend";
 import { Navigation } from "./Navigation";
 
 interface LayoutProps {
@@ -5,9 +7,20 @@ interface LayoutProps {
 }
 
 export function Layout({ children }: LayoutProps) {
+  const { actor, isFetching } = useBackend();
+  const [initialized, setInitialized] = useState(false);
+
+  useEffect(() => {
+    if (!actor || isFetching || initialized) return;
+    actor
+      ._initializeAccessControl()
+      .then(() => setInitialized(true))
+      .catch(() => setInitialized(true));
+  }, [actor, isFetching, initialized]);
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <Navigation />
+      <Navigation initialized={initialized} />
       <main className="flex-1">{children}</main>
       <Footer />
     </div>

@@ -3,8 +3,12 @@ import { Link } from "@tanstack/react-router";
 import { Settings, Waves } from "lucide-react";
 import { useIsAdmin } from "../hooks/use-admin";
 
-export function Navigation() {
-  const { isAdmin } = useIsAdmin();
+interface NavigationProps {
+  initialized?: boolean;
+}
+
+export function Navigation({ initialized = false }: NavigationProps) {
+  const { isAdmin } = useIsAdmin(initialized);
 
   return (
     <nav className="bg-card border-b border-primary/10 shadow-ambient sticky top-0 z-50">
