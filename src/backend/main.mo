@@ -14,6 +14,19 @@ import TwitterApi "mixins/twitter-api";
 
 actor {
   stable var accessControlState = AccessControl.initState();
+
+  // One-time postupgrade hook: reset adminAssigned if the anonymous principal
+  // claimed the slot (or if userRoles has no admin), so the first real login
+  // can be promoted to admin via the first-caller-wins pattern.
+  system func postupgrade() {
+    let hasRealAdmin = accessControlState.userRoles.entries().find(
+      func((_, role)) { role == #admin }
+    ) != null;
+    if (not hasRealAdmin) {
+      accessControlState.adminAssigned := false;
+      accessControlState.userRoles.clear();
+    };
+  };
   include MixinAuthorization(accessControlState);
 
   // — Booking state —
