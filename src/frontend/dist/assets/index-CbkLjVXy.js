@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-DepPUL6o.js","assets/button-CZ28GUuK.js","assets/proxy-9AKmC6Xt.js","assets/index-BLv56Eft.js","assets/users-BY9Aq398.js","assets/loader-circle-CXsK3F3Q.js","assets/index-CZ7A7rJO.js","assets/BookingConfirm-BXozr5fa.js","assets/badge-CZe6xC3r.js","assets/circle-check-big-YE6hDDnI.js","assets/twitter-BQAmsMx-.js","assets/OAuthCallback-CRSBXwM7.js","assets/circle-x-U_ETCZA5.js","assets/Settings-DbK-tAi8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-Cz_r2I97.js","assets/button-rfx39Nyg.js","assets/proxy-CDK1B0SO.js","assets/index-bmQzjiZx.js","assets/users-BGo29cQ-.js","assets/loader-circle-Bywl3foX.js","assets/index-DMpH-5vK.js","assets/BookingConfirm-CuwDalfp.js","assets/badge-zVpG1PnR.js","assets/circle-check-big-BT3A0ZvZ.js","assets/twitter-DWtxJLxr.js","assets/OAuthCallback-CwRs9Hc0.js","assets/circle-x-DctHa_zi.js","assets/Settings-B7bQed8y.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -35528,24 +35528,12 @@ const createLucideIcon = (iconName, iconNode) => {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$3 = [
+const __iconNode$2 = [
   ["path", { d: "m10 17 5-5-5-5", key: "1bsop3" }],
   ["path", { d: "M15 12H3", key: "6jk70r" }],
   ["path", { d: "M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4", key: "u53s6r" }]
 ];
-const LogIn = createLucideIcon("log-in", __iconNode$3);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$2 = [
-  ["path", { d: "m16 17 5-5-5-5", key: "1bji2h" }],
-  ["path", { d: "M21 12H9", key: "dn1m92" }],
-  ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
-];
-const LogOut = createLucideIcon("log-out", __iconNode$2);
+const LogIn = createLucideIcon("log-in", __iconNode$2);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -35597,13 +35585,16 @@ function useIsAdmin(_initialized) {
   const { actor, isFetching } = useBackend();
   const { identity } = useInternetIdentity();
   const principalText = (identity == null ? void 0 : identity.getPrincipal().toText()) ?? "anonymous";
+  const isAnonymous = principalText === "2vxsx-fae";
   console.log(
     "[Admin] useIsAdmin called — actor:",
     !!actor,
     "principal:",
     principalText,
     "isFetching:",
-    isFetching
+    isFetching,
+    "isAnonymous:",
+    isAnonymous
   );
   const { data: isAdmin = false, isLoading } = useQuery({
     // Include the principal text so cache busts when identity changes (login / logout)
@@ -35637,8 +35628,8 @@ function useIsAdmin(_initialized) {
         return false;
       }
     },
-    // Enabled as soon as the actor is ready — isFetching gate removed to avoid query never running
-    enabled: !!actor,
+    // Only run when actor is ready AND principal is a real authenticated identity (not anonymous)
+    enabled: !!actor && !isAnonymous,
     staleTime: 0,
     retry: 2
   });
@@ -35646,7 +35637,9 @@ function useIsAdmin(_initialized) {
 }
 function Navigation({ initialized: _initialized }) {
   const { isAdmin } = useIsAdmin();
-  const { login, clear, isAuthenticated, isInitializing } = useInternetIdentity();
+  const { login, clear, isAuthenticated, isInitializing, identity } = useInternetIdentity();
+  const principalText = (identity == null ? void 0 : identity.getPrincipal().toText()) ?? "2vxsx-fae";
+  const isAnonymousPrincipal = principalText === "2vxsx-fae";
   return /* @__PURE__ */ jsxRuntimeExports.jsx("nav", { className: "bg-card border-b border-primary/10 shadow-ambient sticky top-0 z-50", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto flex items-center justify-between h-16 px-4 md:px-6", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
       Link,
@@ -35671,7 +35664,7 @@ function Navigation({ initialized: _initialized }) {
           ocid: "nav.settings_link"
         }
       ),
-      isInitializing ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "px-3.5 py-2 text-sm text-muted-foreground", children: "Loading..." }) : isAuthenticated ? /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      isInitializing ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "px-3.5 py-2 text-sm text-muted-foreground", children: "Loading..." }) : isAuthenticated && !isAnonymousPrincipal ? /* @__PURE__ */ jsxRuntimeExports.jsx(
         "button",
         {
           type: "button",
@@ -35682,10 +35675,7 @@ function Navigation({ initialized: _initialized }) {
             "text-muted-foreground hover:text-foreground hover:bg-primary/5",
             "transition-smooth"
           ),
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(LogOut, { className: "w-3.5 h-3.5" }),
-            "Logout"
-          ]
+          children: "Logout"
         }
       ) : /* @__PURE__ */ jsxRuntimeExports.jsxs(
         "button",
@@ -35790,10 +35780,10 @@ function Skeleton({ className, ...props }) {
     }
   );
 }
-const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-DepPUL6o.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
-const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-BXozr5fa.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
-const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-CRSBXwM7.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
-const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-DbK-tAi8.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
+const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-Cz_r2I97.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
+const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-CuwDalfp.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
+const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-CwRs9Hc0.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
+const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-B7bQed8y.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
 function PageLoader() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 py-16 space-y-4", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-12 w-64" }),

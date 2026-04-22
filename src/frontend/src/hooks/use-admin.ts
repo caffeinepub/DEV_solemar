@@ -13,6 +13,9 @@ export function useIsAdmin(_initialized?: boolean) {
   const { identity } = useInternetIdentity();
   const principalText = identity?.getPrincipal().toText() ?? "anonymous";
 
+  // Anonymous principal constant — do not run admin check for unauthenticated actors
+  const isAnonymous = principalText === "2vxsx-fae";
+
   console.log(
     "[Admin] useIsAdmin called — actor:",
     !!actor,
@@ -20,6 +23,8 @@ export function useIsAdmin(_initialized?: boolean) {
     principalText,
     "isFetching:",
     isFetching,
+    "isAnonymous:",
+    isAnonymous,
   );
 
   const { data: isAdmin = false, isLoading } = useQuery({
@@ -54,8 +59,8 @@ export function useIsAdmin(_initialized?: boolean) {
         return false;
       }
     },
-    // Enabled as soon as the actor is ready — isFetching gate removed to avoid query never running
-    enabled: !!actor,
+    // Only run when actor is ready AND principal is a real authenticated identity (not anonymous)
+    enabled: !!actor && !isAnonymous,
     staleTime: 0,
     retry: 2,
   });

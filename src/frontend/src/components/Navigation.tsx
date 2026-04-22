@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { useInternetIdentity } from "@caffeineai/core-infrastructure";
 import { Link } from "@tanstack/react-router";
-import { LogIn, LogOut, Settings, Waves } from "lucide-react";
+import { LogIn, Settings, Waves } from "lucide-react";
 import { useIsAdmin } from "../hooks/use-admin";
 
 interface NavigationProps {
@@ -12,8 +12,11 @@ interface NavigationProps {
 export function Navigation({ initialized: _initialized }: NavigationProps) {
   // Hook is now self-contained — no external initialized gate needed
   const { isAdmin } = useIsAdmin();
-  const { login, clear, isAuthenticated, isInitializing } =
+  const { login, clear, isAuthenticated, isInitializing, identity } =
     useInternetIdentity();
+  // Anonymous principal constant — guard logout button from showing for unauthenticated actors
+  const principalText = identity?.getPrincipal().toText() ?? "2vxsx-fae";
+  const isAnonymousPrincipal = principalText === "2vxsx-fae";
 
   return (
     <nav className="bg-card border-b border-primary/10 shadow-ambient sticky top-0 z-50">
@@ -47,7 +50,7 @@ export function Navigation({ initialized: _initialized }: NavigationProps) {
             <span className="px-3.5 py-2 text-sm text-muted-foreground">
               Loading...
             </span>
-          ) : isAuthenticated ? (
+          ) : isAuthenticated && !isAnonymousPrincipal ? (
             <button
               type="button"
               onClick={clear}
@@ -58,7 +61,6 @@ export function Navigation({ initialized: _initialized }: NavigationProps) {
                 "transition-smooth",
               )}
             >
-              <LogOut className="w-3.5 h-3.5" />
               Logout
             </button>
           ) : (
