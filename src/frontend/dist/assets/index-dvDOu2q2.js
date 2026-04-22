@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-Cz_r2I97.js","assets/button-rfx39Nyg.js","assets/proxy-CDK1B0SO.js","assets/index-bmQzjiZx.js","assets/users-BGo29cQ-.js","assets/loader-circle-Bywl3foX.js","assets/index-DMpH-5vK.js","assets/BookingConfirm-CuwDalfp.js","assets/badge-zVpG1PnR.js","assets/circle-check-big-BT3A0ZvZ.js","assets/twitter-DWtxJLxr.js","assets/OAuthCallback-CwRs9Hc0.js","assets/circle-x-DctHa_zi.js","assets/Settings-B7bQed8y.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-D_nsZr7n.js","assets/button-Br4smP_O.js","assets/proxy-C2M1YLTI.js","assets/index-V8ZPGOTO.js","assets/users-DseSG_l0.js","assets/loader-circle-lbU4Sj2B.js","assets/index-Cva4JW2q.js","assets/BookingConfirm-Bm6pR3LU.js","assets/badge-BLeqFRni.js","assets/circle-check-big-AQ7nR1HK.js","assets/twitter-CgDuxQ-K.js","assets/OAuthCallback-BGPqaMvp.js","assets/circle-x-EE-8eEca.js","assets/Settings-B5jon5L_.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -35584,8 +35584,8 @@ const Waves = createLucideIcon("waves", __iconNode);
 function useIsAdmin(_initialized) {
   const { actor, isFetching } = useBackend();
   const { identity } = useInternetIdentity();
-  const principalText = (identity == null ? void 0 : identity.getPrincipal().toText()) ?? "anonymous";
-  const isAnonymous = principalText === "2vxsx-fae";
+  const principalText = (identity == null ? void 0 : identity.getPrincipal().toText()) ?? "2vxsx-fae";
+  const isAnonymous = principalText === "2vxsx-fae" || principalText === "anonymous";
   console.log(
     "[Admin] useIsAdmin called — actor:",
     !!actor,
@@ -35639,7 +35639,7 @@ function Navigation({ initialized: _initialized }) {
   const { isAdmin } = useIsAdmin();
   const { login, clear, isAuthenticated, isInitializing, identity } = useInternetIdentity();
   const principalText = (identity == null ? void 0 : identity.getPrincipal().toText()) ?? "2vxsx-fae";
-  const isAnonymousPrincipal = principalText === "2vxsx-fae";
+  const isAnonymousPrincipal = principalText === "2vxsx-fae" || principalText === "anonymous";
   return /* @__PURE__ */ jsxRuntimeExports.jsx("nav", { className: "bg-card border-b border-primary/10 shadow-ambient sticky top-0 z-50", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto flex items-center justify-between h-16 px-4 md:px-6", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
       Link,
@@ -35780,10 +35780,10 @@ function Skeleton({ className, ...props }) {
     }
   );
 }
-const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-Cz_r2I97.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
-const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-CuwDalfp.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
-const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-CwRs9Hc0.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
-const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-B7bQed8y.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
+const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-D_nsZr7n.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
+const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-Bm6pR3LU.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
+const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-BGPqaMvp.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
+const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-B5jon5L_.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
 function PageLoader() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 py-16 space-y-4", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-12 w-64" }),

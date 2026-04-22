@@ -11,10 +11,12 @@ export function useIsAdmin(_initialized?: boolean) {
   // !!actor is identical (true) for both anonymous and authenticated actors, so using it alone
   // caused a stale cache hit: the cached false from the anonymous check was served after login.
   const { identity } = useInternetIdentity();
-  const principalText = identity?.getPrincipal().toText() ?? "anonymous";
+  const principalText = identity?.getPrincipal().toText() ?? "2vxsx-fae";
 
-  // Anonymous principal constant — do not run admin check for unauthenticated actors
-  const isAnonymous = principalText === "2vxsx-fae";
+  // Anonymous principal — "2vxsx-fae" is the canonical ICP anonymous principal text;
+  // some environments surface it as "anonymous". Guard both forms.
+  const isAnonymous =
+    principalText === "2vxsx-fae" || principalText === "anonymous";
 
   console.log(
     "[Admin] useIsAdmin called — actor:",

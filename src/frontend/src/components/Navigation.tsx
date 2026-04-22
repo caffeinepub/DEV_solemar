@@ -15,8 +15,10 @@ export function Navigation({ initialized: _initialized }: NavigationProps) {
   const { login, clear, isAuthenticated, isInitializing, identity } =
     useInternetIdentity();
   // Anonymous principal constant — guard logout button from showing for unauthenticated actors
-  const principalText = identity?.getPrincipal().toText() ?? "2vxsx-fae";
-  const isAnonymousPrincipal = principalText === "2vxsx-fae";
+  const principalText = identity?.getPrincipal().toText() ?? "2vxsx-fae"; // fallback is the ICP anonymous principal
+  // Anonymous principal — guard both canonical form and "anonymous" string
+  const isAnonymousPrincipal =
+    principalText === "2vxsx-fae" || principalText === "anonymous";
 
   return (
     <nav className="bg-card border-b border-primary/10 shadow-ambient sticky top-0 z-50">
