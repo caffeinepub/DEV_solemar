@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-D_nsZr7n.js","assets/button-Br4smP_O.js","assets/proxy-C2M1YLTI.js","assets/index-V8ZPGOTO.js","assets/users-DseSG_l0.js","assets/loader-circle-lbU4Sj2B.js","assets/index-Cva4JW2q.js","assets/BookingConfirm-Bm6pR3LU.js","assets/badge-BLeqFRni.js","assets/circle-check-big-AQ7nR1HK.js","assets/twitter-CgDuxQ-K.js","assets/OAuthCallback-BGPqaMvp.js","assets/circle-x-EE-8eEca.js","assets/Settings-B5jon5L_.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-Pi8xBbtD.js","assets/button-BXgNW6jx.js","assets/proxy-d5CwMdTp.js","assets/index-BeUG5XlZ.js","assets/users-CguzqEXG.js","assets/loader-circle-BdubZ8gC.js","assets/index-BIV6yhV1.js","assets/BookingConfirm-CT4UxhLO.js","assets/badge-BuIbHfYf.js","assets/circle-check-big-BbDKBnzf.js","assets/twitter-9KQA7YNa.js","assets/OAuthCallback-Ciqq9VC8.js","assets/circle-x-B8n_5k1I.js","assets/Settings-Cpk2n8sn.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -35585,7 +35585,7 @@ function useIsAdmin(_initialized) {
   const { actor, isFetching } = useBackend();
   const { identity } = useInternetIdentity();
   const principalText = (identity == null ? void 0 : identity.getPrincipal().toText()) ?? "2vxsx-fae";
-  const isAnonymous = principalText === "2vxsx-fae" || principalText === "anonymous";
+  const isAnonymous = principalText === "2vxsx-fae";
   console.log(
     "[Admin] useIsAdmin called — actor:",
     !!actor,
@@ -35605,17 +35605,58 @@ function useIsAdmin(_initialized) {
         return false;
       }
       try {
+        try {
+          const roleBefore = await actor.getCallerUserRole();
+          console.log(
+            "[Admin] TRACE pre-init: getCallerUserRole() =",
+            JSON.stringify(roleBefore),
+            "for principal:",
+            principalText
+          );
+        } catch (roleErr) {
+          console.log(
+            "[Admin] TRACE pre-init: getCallerUserRole() threw:",
+            roleErr,
+            "for principal:",
+            principalText
+          );
+        }
         console.log(
           "[Admin] queryFn: calling _initializeAccessControl() for principal:",
-          principalText
+          principalText,
+          "(note: useActor may have already called this internally)"
         );
         await actor._initializeAccessControl();
+        console.log(
+          "[Admin] queryFn: _initializeAccessControl() completed for principal:",
+          principalText
+        );
+        try {
+          const roleAfter = await actor.getCallerUserRole();
+          console.log(
+            "[Admin] TRACE post-init: getCallerUserRole() =",
+            JSON.stringify(roleAfter),
+            "for principal:",
+            principalText
+          );
+        } catch (roleErr) {
+          console.log(
+            "[Admin] TRACE post-init: getCallerUserRole() threw:",
+            roleErr,
+            "for principal:",
+            principalText
+          );
+        }
         const result = await actor.isCallerAdmin();
         console.log(
           "[Admin] isCallerAdmin result:",
           result,
           "for principal:",
-          principalText
+          principalText,
+          "| actor truthy:",
+          !!actor,
+          "| isAnonymous:",
+          isAnonymous
         );
         return result;
       } catch (error) {
@@ -35780,10 +35821,10 @@ function Skeleton({ className, ...props }) {
     }
   );
 }
-const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-D_nsZr7n.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
-const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-Bm6pR3LU.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
-const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-BGPqaMvp.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
-const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-B5jon5L_.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
+const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-Pi8xBbtD.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
+const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-CT4UxhLO.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
+const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-Ciqq9VC8.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
+const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-Cpk2n8sn.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
 function PageLoader() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 py-16 space-y-4", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-12 w-64" }),

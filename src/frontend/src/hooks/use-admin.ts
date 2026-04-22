@@ -13,10 +13,10 @@ export function useIsAdmin(_initialized?: boolean) {
   const { identity } = useInternetIdentity();
   const principalText = identity?.getPrincipal().toText() ?? "2vxsx-fae";
 
-  // Anonymous principal — "2vxsx-fae" is the canonical ICP anonymous principal text;
-  // some environments surface it as "anonymous". Guard both forms.
-  const isAnonymous =
-    principalText === "2vxsx-fae" || principalText === "anonymous";
+  // AGENTS.md: isAnonymous must be derived STRICTLY from principalText === '2vxsx-fae'.
+  // Old line (commented out — do NOT delete):
+  // const isAnonymous = principalText === "2vxsx-fae" || principalText === "anonymous";
+  const isAnonymous = principalText === "2vxsx-fae";
 
   console.log(
     "[Admin] useIsAdmin called — actor:",
@@ -38,17 +38,70 @@ export function useIsAdmin(_initialized?: boolean) {
         return false;
       }
       try {
+        // TRACE 1: Check what role the canister sees for this caller BEFORE initialization.
+        // This reveals whether the actor is actually authenticated (or still anonymous) at call time.
+        try {
+          const roleBefore = await actor.getCallerUserRole();
+          console.log(
+            "[Admin] TRACE pre-init: getCallerUserRole() =",
+            JSON.stringify(roleBefore),
+            "for principal:",
+            principalText,
+          );
+        } catch (roleErr) {
+          console.log(
+            "[Admin] TRACE pre-init: getCallerUserRole() threw:",
+            roleErr,
+            "for principal:",
+            principalText,
+          );
+        }
+
+        // NOTE: useActor from @caffeineai/core-infrastructure already calls
+        // _initializeAccessControl() internally when isAuthenticated=true before returning
+        // the actor. This second call is therefore redundant, but it's idempotent and
+        // harmless — keeping it so we can observe the timing in the trace logs.
         console.log(
           "[Admin] queryFn: calling _initializeAccessControl() for principal:",
           principalText,
+          "(note: useActor may have already called this internally)",
         );
         await actor._initializeAccessControl();
+        console.log(
+          "[Admin] queryFn: _initializeAccessControl() completed for principal:",
+          principalText,
+        );
+
+        // TRACE 2: Check what role the canister sees AFTER initialization.
+        // If _initializeAccessControl() registered this caller as admin, the role should reflect it.
+        try {
+          const roleAfter = await actor.getCallerUserRole();
+          console.log(
+            "[Admin] TRACE post-init: getCallerUserRole() =",
+            JSON.stringify(roleAfter),
+            "for principal:",
+            principalText,
+          );
+        } catch (roleErr) {
+          console.log(
+            "[Admin] TRACE post-init: getCallerUserRole() threw:",
+            roleErr,
+            "for principal:",
+            principalText,
+          );
+        }
+
         const result = await actor.isCallerAdmin();
+        // TRACE 3: Log the final admin check result with full context.
         console.log(
           "[Admin] isCallerAdmin result:",
           result,
           "for principal:",
           principalText,
+          "| actor truthy:",
+          !!actor,
+          "| isAnonymous:",
+          isAnonymous,
         );
         return result;
       } catch (error) {
