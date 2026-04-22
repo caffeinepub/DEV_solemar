@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-HEb5sMCI.js","assets/button-BLjiBCNV.js","assets/proxy-v_w9FmWz.js","assets/index-eCs6uvh-.js","assets/users-Bn5XWXJj.js","assets/loader-circle-yE3DxZgi.js","assets/index-BSQVlsvZ.js","assets/BookingConfirm-DVHP85Jy.js","assets/badge-D2c9Q8l7.js","assets/circle-check-big-hvdwyGJF.js","assets/twitter-BC8irsjR.js","assets/OAuthCallback-Cqxr1piF.js","assets/circle-x-DS_92Po1.js","assets/Settings-BE9Kabem.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-CFRHYs3N.js","assets/button-DjKzj_bo.js","assets/proxy-CCbaTwAa.js","assets/index-D0PKKU4J.js","assets/users-CVwrk3ab.js","assets/loader-circle-MBV8gwbk.js","assets/index-BQxNGXbO.js","assets/BookingConfirm-DfDhNgzT.js","assets/badge-DFHurYdh.js","assets/circle-check-big-Cxv3fAwk.js","assets/twitter-O041gv87.js","assets/OAuthCallback-CdSuOiKa.js","assets/circle-x-_wdLdZ8g.js","assets/Settings-DpnMPgw9.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -35582,7 +35582,7 @@ function useIsAdmin(initialized = false) {
         return false;
       }
     },
-    enabled: !!actor && !isFetching && initialized,
+    enabled: !!actor && !isFetching,
     staleTime: 0,
     retry: 2
   });
@@ -35700,10 +35700,10 @@ function Skeleton({ className, ...props }) {
     }
   );
 }
-const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-HEb5sMCI.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
-const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-DVHP85Jy.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
-const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-Cqxr1piF.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
-const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-BE9Kabem.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
+const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-CFRHYs3N.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
+const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-DfDhNgzT.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
+const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-CdSuOiKa.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
+const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-DpnMPgw9.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
 function PageLoader() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 py-16 space-y-4", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-12 w-64" }),

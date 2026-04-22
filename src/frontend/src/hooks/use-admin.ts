@@ -15,7 +15,7 @@ export function useIsAdmin(initialized = false) {
         return false;
       }
     },
-    enabled: !!actor && !isFetching && initialized,
+    enabled: !!actor && !isFetching,
     staleTime: 0,
     retry: 2,
   });
