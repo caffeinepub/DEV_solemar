@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-DN5sBV4R.js","assets/button-DV8AM2la.js","assets/proxy-1RjKtc-r.js","assets/index-e60ACYPE.js","assets/users-BKcYcXnl.js","assets/loader-circle-BQPgGJsm.js","assets/index-BiwNW3B0.js","assets/BookingConfirm-Ccjle9ri.js","assets/badge-D2_ndwkV.js","assets/circle-check-big-CzOH-W3z.js","assets/twitter-DDB1_ZDh.js","assets/OAuthCallback-5y8X5UZQ.js","assets/circle-x-7dyJJBLt.js","assets/Settings-BmLM5uzD.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-HEb5sMCI.js","assets/button-BLjiBCNV.js","assets/proxy-v_w9FmWz.js","assets/index-eCs6uvh-.js","assets/users-Bn5XWXJj.js","assets/loader-circle-yE3DxZgi.js","assets/index-BSQVlsvZ.js","assets/BookingConfirm-DVHP85Jy.js","assets/badge-D2c9Q8l7.js","assets/circle-check-big-hvdwyGJF.js","assets/twitter-BC8irsjR.js","assets/OAuthCallback-Cqxr1piF.js","assets/circle-x-DS_92Po1.js","assets/Settings-BE9Kabem.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -35572,7 +35572,7 @@ const Waves = createLucideIcon("waves", __iconNode);
 function useIsAdmin(initialized = false) {
   const { actor, isFetching } = useBackend();
   const { data: isAdmin = false, isLoading } = useQuery({
-    queryKey: ["isCallerAdmin"],
+    queryKey: ["isCallerAdmin", !!actor, initialized],
     queryFn: async () => {
       if (!actor) return false;
       try {
@@ -35640,9 +35640,10 @@ function Layout({ children }) {
   const { actor, isFetching } = useBackend();
   const [initialized, setInitialized] = reactExports.useState(false);
   reactExports.useEffect(() => {
-    if (!actor || isFetching || initialized) return;
+    if (!actor || isFetching) return;
+    setInitialized(false);
     actor._initializeAccessControl().then(() => setInitialized(true)).catch(() => setInitialized(true));
-  }, [actor, isFetching, initialized]);
+  }, [actor, isFetching]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen flex flex-col bg-background", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Navigation, { initialized }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "flex-1", children }),
@@ -35699,10 +35700,10 @@ function Skeleton({ className, ...props }) {
     }
   );
 }
-const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-DN5sBV4R.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
-const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-Ccjle9ri.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
-const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-5y8X5UZQ.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
-const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-BmLM5uzD.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
+const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-HEb5sMCI.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
+const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-DVHP85Jy.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
+const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-Cqxr1piF.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
+const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-BE9Kabem.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
 function PageLoader() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 py-16 space-y-4", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-12 w-64" }),

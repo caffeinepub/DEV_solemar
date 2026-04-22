@@ -5,7 +5,7 @@ export function useIsAdmin(initialized = false) {
   const { actor, isFetching } = useBackend();
 
   const { data: isAdmin = false, isLoading } = useQuery({
-    queryKey: ["isCallerAdmin"],
+    queryKey: ["isCallerAdmin", !!actor, initialized],
     queryFn: async () => {
       if (!actor) return false;
       try {

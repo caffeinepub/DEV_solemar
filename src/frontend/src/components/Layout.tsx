@@ -11,12 +11,13 @@ export function Layout({ children }: LayoutProps) {
   const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    if (!actor || isFetching || initialized) return;
+    if (!actor || isFetching) return;
+    setInitialized(false);
     actor
       ._initializeAccessControl()
       .then(() => setInitialized(true))
       .catch(() => setInitialized(true));
-  }, [actor, isFetching, initialized]);
+  }, [actor, isFetching]);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
