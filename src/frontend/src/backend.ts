@@ -128,6 +128,7 @@ export interface backendInterface {
     completeOAuth(code: string, state: string): Promise<Result>;
     createBooking(checkIn: string, checkOut: string, guestCount: bigint, name: string, email: string): Promise<string>;
     disconnectTwitter(): Promise<void>;
+    forceSetAdmin(p: Principal): Promise<void>;
     getCallerUserRole(): Promise<UserRole>;
     getOAuthStartParams(redirectUri: string): Promise<OAuthStartParams>;
     getTwitterStatus(): Promise<TwitterStatus>;
@@ -206,6 +207,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.disconnectTwitter();
+            return result;
+        }
+    }
+    async forceSetAdmin(arg0: Principal): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.forceSetAdmin(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.forceSetAdmin(arg0);
             return result;
         }
     }

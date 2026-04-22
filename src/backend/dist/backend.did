@@ -47,6 +47,7 @@ service : {
   createBooking: (checkIn: text, checkOut: text, guestCount: nat, name: 
    text, email: text) -> (text);
   disconnectTwitter: () -> ();
+  forceSetAdmin: (p: principal) -> ();
   getCallerUserRole: () -> (UserRole) query;
   getOAuthStartParams: (redirectUri: text) -> (OAuthStartParams);
   getTwitterStatus: () -> (TwitterStatus) query;

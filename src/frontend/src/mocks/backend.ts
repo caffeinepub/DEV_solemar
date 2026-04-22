@@ -26,4 +26,5 @@ export const mockBackend: backendInterface = {
   }),
   isCallerAdmin: async () => false,
   setXClientId: async (_clientId) => undefined,
+  forceSetAdmin: (_p) => Promise.resolve(undefined),
 };

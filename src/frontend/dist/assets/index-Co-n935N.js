@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-Pi8xBbtD.js","assets/button-BXgNW6jx.js","assets/proxy-d5CwMdTp.js","assets/index-BeUG5XlZ.js","assets/users-CguzqEXG.js","assets/loader-circle-BdubZ8gC.js","assets/index-BIV6yhV1.js","assets/BookingConfirm-CT4UxhLO.js","assets/badge-BuIbHfYf.js","assets/circle-check-big-BbDKBnzf.js","assets/twitter-9KQA7YNa.js","assets/OAuthCallback-Ciqq9VC8.js","assets/circle-x-B8n_5k1I.js","assets/Settings-Cpk2n8sn.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-B2HdxyvG.js","assets/button-pM0LrxD6.js","assets/proxy-NNueHc4F.js","assets/index-Degdf0HY.js","assets/users-Y9qZmEmx.js","assets/loader-circle-CLxeNO_K.js","assets/index-8yobre3L.js","assets/BookingConfirm-CTW3bvnv.js","assets/badge-RmxXKaPs.js","assets/circle-check-big-CNWfS2rZ.js","assets/twitter-DS_AmaEk.js","assets/OAuthCallback-Blv34PMr.js","assets/circle-x-v5ByXvNV.js","assets/Settings-JxKWeBt2.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -32595,6 +32595,7 @@ Service({
     []
   ),
   "disconnectTwitter": Func([], [], []),
+  "forceSetAdmin": Func([Principal2], [], []),
   "getCallerUserRole": Func([], [UserRole], ["query"]),
   "getOAuthStartParams": Func([Text], [OAuthStartParams], []),
   "getTwitterStatus": Func([], [TwitterStatus], ["query"]),
@@ -32641,6 +32642,7 @@ const idlFactory = ({ IDL: IDL2 }) => {
       []
     ),
     "disconnectTwitter": IDL2.Func([], [], []),
+    "forceSetAdmin": IDL2.Func([IDL2.Principal], [], []),
     "getCallerUserRole": IDL2.Func([], [UserRole2], ["query"]),
     "getOAuthStartParams": IDL2.Func([IDL2.Text], [OAuthStartParams2], []),
     "getTwitterStatus": IDL2.Func([], [TwitterStatus2], ["query"]),
@@ -32765,6 +32767,20 @@ class Backend {
       }
     } else {
       const result = await this.actor.disconnectTwitter();
+      return result;
+    }
+  }
+  async forceSetAdmin(arg0) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.forceSetAdmin(arg0);
+        return result;
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.forceSetAdmin(arg0);
       return result;
     }
   }
@@ -35821,10 +35837,10 @@ function Skeleton({ className, ...props }) {
     }
   );
 }
-const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-Pi8xBbtD.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
-const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-CT4UxhLO.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
-const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-Ciqq9VC8.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
-const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-Cpk2n8sn.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
+const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-B2HdxyvG.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
+const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-CTW3bvnv.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
+const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-Blv34PMr.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
+const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-JxKWeBt2.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
 function PageLoader() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 py-16 space-y-4", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-12 w-64" }),

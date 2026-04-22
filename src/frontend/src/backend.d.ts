@@ -45,6 +45,7 @@ export interface backendInterface {
     completeOAuth(code: string, state: string): Promise<Result>;
     createBooking(checkIn: string, checkOut: string, guestCount: bigint, name: string, email: string): Promise<string>;
     disconnectTwitter(): Promise<void>;
+    forceSetAdmin(p: Principal): Promise<void>;
     getCallerUserRole(): Promise<UserRole>;
     getOAuthStartParams(redirectUri: string): Promise<OAuthStartParams>;
     getTwitterStatus(): Promise<TwitterStatus>;

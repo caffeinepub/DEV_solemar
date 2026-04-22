@@ -45,6 +45,7 @@ export interface _SERVICE {
     string
   >,
   'disconnectTwitter' : ActorMethod<[], undefined>,
+  'forceSetAdmin' : ActorMethod<[Principal], undefined>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getOAuthStartParams' : ActorMethod<[string], OAuthStartParams>,
   'getTwitterStatus' : ActorMethod<[], TwitterStatus>,

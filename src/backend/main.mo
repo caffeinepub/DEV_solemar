@@ -55,6 +55,13 @@ actor {
     upgrade : ?Bool;
   };
 
+  // One-shot bootstrap: directly assign a principal as admin in stable storage,
+  // bypassing first-caller-wins. REMOVE this function in the next deploy after use.
+  public shared func forceSetAdmin(p : Principal) : async () {
+    accessControlState.userRoles.add(p, #admin);
+    accessControlState.adminAssigned := true;
+  };
+
   public query func http_request(_req : HttpRequest) : async HttpResponse {
     {
       status_code = 200;
