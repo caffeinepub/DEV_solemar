@@ -8,6 +8,7 @@ export function useIsAdmin() {
     queryKey: ["isCallerAdmin"],
     queryFn: async () => {
       if (!actor) return false;
+      await actor._initializeAccessControl();
       return actor.isCallerAdmin();
     },
     enabled: !!actor && !isFetching,
