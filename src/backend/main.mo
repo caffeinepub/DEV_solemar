@@ -3,17 +3,21 @@ import List "mo:core/List";
 import Map "mo:core/Map";
 import Principal "mo:core/Principal";
 import Text "mo:core/Text";
-import AccessControl "mo:caffeineai-authorization/access-control";
-import MixinAuthorization "mo:caffeineai-authorization/MixinAuthorization";
+// STEP 1: commented out to clear stable memory slot — will be re-added in Step 2
+// import AccessControl "mo:caffeineai-authorization/access-control";
+// import MixinAuthorization "mo:caffeineai-authorization/MixinAuthorization";
 import BookingTypes "types/booking";
 import TwitterTypes "types/twitter";
-import BookingApi "mixins/booking-api";
-import TwitterApi "mixins/twitter-api";
+// STEP 1: mixin imports commented out — re-enable in Step 2
+// import BookingApi "mixins/booking-api";
+// import TwitterApi "mixins/twitter-api";
+import Migration "migration";
 
+(with migration = Migration.run)
 actor {
-  // — Authorization —
-  let accessControlState = AccessControl.initState();
-  include MixinAuthorization(accessControlState);
+  // STEP 1: commented out to clear stable memory slot — will be re-added in Step 2
+  // stable var accessControlState = AccessControl.initState();
+  // include MixinAuthorization(accessControlState);
 
   // — Booking state —
   let bookings = List.empty<BookingTypes.Booking>();
@@ -24,9 +28,9 @@ actor {
   let pkceSessionStore = Map.empty<Principal, TwitterTypes.PkceSession>();
   let xClientId = { var value : ?Text = null };
 
-  // — Mixins —
-  include BookingApi(accessControlState, bookings, bookingCounter, tokenStore, xClientId);
-  include TwitterApi(accessControlState, tokenStore, pkceSessionStore, xClientId);
+  // STEP 1: accessControlState stub — real state removed to clear stable memory slot
+  // include BookingApi(accessControlState, bookings, bookingCounter, tokenStore, xClientId);
+  // include TwitterApi(accessControlState, tokenStore, pkceSessionStore, xClientId);
 
   // — HTTP interface (for CSP headers on asset requests) —
   type HttpRequest = {

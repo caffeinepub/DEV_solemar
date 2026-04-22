@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-D_nsZr7n.js","assets/button-Br4smP_O.js","assets/proxy-C2M1YLTI.js","assets/index-V8ZPGOTO.js","assets/users-DseSG_l0.js","assets/loader-circle-lbU4Sj2B.js","assets/index-Cva4JW2q.js","assets/BookingConfirm-Bm6pR3LU.js","assets/badge-BLeqFRni.js","assets/circle-check-big-AQ7nR1HK.js","assets/twitter-CgDuxQ-K.js","assets/OAuthCallback-BGPqaMvp.js","assets/circle-x-EE-8eEca.js","assets/Settings-B5jon5L_.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-B2MnHi1p.js","assets/button-0Y39uBFH.js","assets/proxy-BcxWpZHd.js","assets/index-B-zKYg0x.js","assets/users-Cu972hpa.js","assets/loader-circle-CwvOCuK4.js","assets/index-DY0ZV_cQ.js","assets/BookingConfirm-CeJ9rhGX.js","assets/badge-BcFT2TJM.js","assets/circle-check-big-DId1KDdv.js","assets/twitter-D8-TVHAk.js","assets/OAuthCallback-pgJ0Ov9V.js","assets/circle-x-C-5DfpIC.js","assets/Settings-DX_-IkUt.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -32558,21 +32558,6 @@ function RouterContextProvider({
 function RouterProvider({ router: router2, ...rest }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(RouterContextProvider, { router: router2, ...rest, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Matches, {}) });
 }
-const UserRole = Variant({
-  "admin": Null,
-  "user": Null,
-  "guest": Null
-});
-const Result = Variant({ "ok": Text, "err": Text });
-const OAuthStartParams = Record({
-  "state": Text,
-  "codeVerifier": Text,
-  "authUrl": Text
-});
-const TwitterStatus = Record({
-  "username": Opt(Text),
-  "connected": Bool
-});
 const HttpRequest = Record({
   "url": Text,
   "method": Text,
@@ -32586,39 +32571,9 @@ const HttpResponse = Record({
   "status_code": Nat16
 });
 Service({
-  "_initializeAccessControl": Func([], [], []),
-  "assignCallerUserRole": Func([Principal2, UserRole], [], []),
-  "completeOAuth": Func([Text, Text], [Result], []),
-  "createBooking": Func(
-    [Text, Text, Nat, Text, Text],
-    [Text],
-    []
-  ),
-  "disconnectTwitter": Func([], [], []),
-  "getCallerUserRole": Func([], [UserRole], ["query"]),
-  "getOAuthStartParams": Func([Text], [OAuthStartParams], []),
-  "getTwitterStatus": Func([], [TwitterStatus], ["query"]),
-  "getXClientId": Func([], [Opt(Text)], ["query"]),
-  "http_request": Func([HttpRequest], [HttpResponse], ["query"]),
-  "isCallerAdmin": Func([], [Bool], ["query"]),
-  "setXClientId": Func([Text], [], [])
+  "http_request": Func([HttpRequest], [HttpResponse], ["query"])
 });
 const idlFactory = ({ IDL: IDL2 }) => {
-  const UserRole2 = IDL2.Variant({
-    "admin": IDL2.Null,
-    "user": IDL2.Null,
-    "guest": IDL2.Null
-  });
-  const Result2 = IDL2.Variant({ "ok": IDL2.Text, "err": IDL2.Text });
-  const OAuthStartParams2 = IDL2.Record({
-    "state": IDL2.Text,
-    "codeVerifier": IDL2.Text,
-    "authUrl": IDL2.Text
-  });
-  const TwitterStatus2 = IDL2.Record({
-    "username": IDL2.Opt(IDL2.Text),
-    "connected": IDL2.Bool
-  });
   const HttpRequest2 = IDL2.Record({
     "url": IDL2.Text,
     "method": IDL2.Text,
@@ -32632,22 +32587,7 @@ const idlFactory = ({ IDL: IDL2 }) => {
     "status_code": IDL2.Nat16
   });
   return IDL2.Service({
-    "_initializeAccessControl": IDL2.Func([], [], []),
-    "assignCallerUserRole": IDL2.Func([IDL2.Principal, UserRole2], [], []),
-    "completeOAuth": IDL2.Func([IDL2.Text, IDL2.Text], [Result2], []),
-    "createBooking": IDL2.Func(
-      [IDL2.Text, IDL2.Text, IDL2.Nat, IDL2.Text, IDL2.Text],
-      [IDL2.Text],
-      []
-    ),
-    "disconnectTwitter": IDL2.Func([], [], []),
-    "getCallerUserRole": IDL2.Func([], [UserRole2], ["query"]),
-    "getOAuthStartParams": IDL2.Func([IDL2.Text], [OAuthStartParams2], []),
-    "getTwitterStatus": IDL2.Func([], [TwitterStatus2], ["query"]),
-    "getXClientId": IDL2.Func([], [IDL2.Opt(IDL2.Text)], ["query"]),
-    "http_request": IDL2.Func([HttpRequest2], [HttpResponse2], ["query"]),
-    "isCallerAdmin": IDL2.Func([], [IDL2.Bool], ["query"]),
-    "setXClientId": IDL2.Func([IDL2.Text], [], [])
+    "http_request": IDL2.Func([HttpRequest2], [HttpResponse2], ["query"])
   });
 };
 function record_opt_to_undefined(arg) {
@@ -32698,230 +32638,34 @@ class Backend {
     this._downloadFile = _downloadFile;
     this.processError = processError2;
   }
-  async _initializeAccessControl() {
-    if (this.processError) {
-      try {
-        const result = await this.actor._initializeAccessControl();
-        return result;
-      } catch (e) {
-        this.processError(e);
-        throw new Error("unreachable");
-      }
-    } else {
-      const result = await this.actor._initializeAccessControl();
-      return result;
-    }
-  }
-  async assignCallerUserRole(arg0, arg1) {
-    if (this.processError) {
-      try {
-        const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n1(this._uploadFile, this._downloadFile, arg1));
-        return result;
-      } catch (e) {
-        this.processError(e);
-        throw new Error("unreachable");
-      }
-    } else {
-      const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n1(this._uploadFile, this._downloadFile, arg1));
-      return result;
-    }
-  }
-  async completeOAuth(arg0, arg1) {
-    if (this.processError) {
-      try {
-        const result = await this.actor.completeOAuth(arg0, arg1);
-        return from_candid_Result_n3(this._uploadFile, this._downloadFile, result);
-      } catch (e) {
-        this.processError(e);
-        throw new Error("unreachable");
-      }
-    } else {
-      const result = await this.actor.completeOAuth(arg0, arg1);
-      return from_candid_Result_n3(this._uploadFile, this._downloadFile, result);
-    }
-  }
-  async createBooking(arg0, arg1, arg2, arg3, arg4) {
-    if (this.processError) {
-      try {
-        const result = await this.actor.createBooking(arg0, arg1, arg2, arg3, arg4);
-        return result;
-      } catch (e) {
-        this.processError(e);
-        throw new Error("unreachable");
-      }
-    } else {
-      const result = await this.actor.createBooking(arg0, arg1, arg2, arg3, arg4);
-      return result;
-    }
-  }
-  async disconnectTwitter() {
-    if (this.processError) {
-      try {
-        const result = await this.actor.disconnectTwitter();
-        return result;
-      } catch (e) {
-        this.processError(e);
-        throw new Error("unreachable");
-      }
-    } else {
-      const result = await this.actor.disconnectTwitter();
-      return result;
-    }
-  }
-  async getCallerUserRole() {
-    if (this.processError) {
-      try {
-        const result = await this.actor.getCallerUserRole();
-        return from_candid_UserRole_n5(this._uploadFile, this._downloadFile, result);
-      } catch (e) {
-        this.processError(e);
-        throw new Error("unreachable");
-      }
-    } else {
-      const result = await this.actor.getCallerUserRole();
-      return from_candid_UserRole_n5(this._uploadFile, this._downloadFile, result);
-    }
-  }
-  async getOAuthStartParams(arg0) {
-    if (this.processError) {
-      try {
-        const result = await this.actor.getOAuthStartParams(arg0);
-        return result;
-      } catch (e) {
-        this.processError(e);
-        throw new Error("unreachable");
-      }
-    } else {
-      const result = await this.actor.getOAuthStartParams(arg0);
-      return result;
-    }
-  }
-  async getTwitterStatus() {
-    if (this.processError) {
-      try {
-        const result = await this.actor.getTwitterStatus();
-        return from_candid_TwitterStatus_n7(this._uploadFile, this._downloadFile, result);
-      } catch (e) {
-        this.processError(e);
-        throw new Error("unreachable");
-      }
-    } else {
-      const result = await this.actor.getTwitterStatus();
-      return from_candid_TwitterStatus_n7(this._uploadFile, this._downloadFile, result);
-    }
-  }
-  async getXClientId() {
-    if (this.processError) {
-      try {
-        const result = await this.actor.getXClientId();
-        return from_candid_opt_n9(this._uploadFile, this._downloadFile, result);
-      } catch (e) {
-        this.processError(e);
-        throw new Error("unreachable");
-      }
-    } else {
-      const result = await this.actor.getXClientId();
-      return from_candid_opt_n9(this._uploadFile, this._downloadFile, result);
-    }
-  }
   async http_request(arg0) {
     if (this.processError) {
       try {
         const result = await this.actor.http_request(arg0);
-        return from_candid_HttpResponse_n10(this._uploadFile, this._downloadFile, result);
+        return from_candid_HttpResponse_n1(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.http_request(arg0);
-      return from_candid_HttpResponse_n10(this._uploadFile, this._downloadFile, result);
-    }
-  }
-  async isCallerAdmin() {
-    if (this.processError) {
-      try {
-        const result = await this.actor.isCallerAdmin();
-        return result;
-      } catch (e) {
-        this.processError(e);
-        throw new Error("unreachable");
-      }
-    } else {
-      const result = await this.actor.isCallerAdmin();
-      return result;
-    }
-  }
-  async setXClientId(arg0) {
-    if (this.processError) {
-      try {
-        const result = await this.actor.setXClientId(arg0);
-        return result;
-      } catch (e) {
-        this.processError(e);
-        throw new Error("unreachable");
-      }
-    } else {
-      const result = await this.actor.setXClientId(arg0);
-      return result;
+      return from_candid_HttpResponse_n1(this._uploadFile, this._downloadFile, result);
     }
   }
 }
-function from_candid_HttpResponse_n10(_uploadFile, _downloadFile, value) {
-  return from_candid_record_n11(_uploadFile, _downloadFile, value);
+function from_candid_HttpResponse_n1(_uploadFile, _downloadFile, value) {
+  return from_candid_record_n2(_uploadFile, _downloadFile, value);
 }
-function from_candid_Result_n3(_uploadFile, _downloadFile, value) {
-  return from_candid_variant_n4(_uploadFile, _downloadFile, value);
-}
-function from_candid_TwitterStatus_n7(_uploadFile, _downloadFile, value) {
-  return from_candid_record_n8(_uploadFile, _downloadFile, value);
-}
-function from_candid_UserRole_n5(_uploadFile, _downloadFile, value) {
-  return from_candid_variant_n6(_uploadFile, _downloadFile, value);
-}
-function from_candid_opt_n12(_uploadFile, _downloadFile, value) {
+function from_candid_opt_n3(_uploadFile, _downloadFile, value) {
   return value.length === 0 ? null : value[0];
 }
-function from_candid_opt_n9(_uploadFile, _downloadFile, value) {
-  return value.length === 0 ? null : value[0];
-}
-function from_candid_record_n11(_uploadFile, _downloadFile, value) {
+function from_candid_record_n2(_uploadFile, _downloadFile, value) {
   return {
     body: value.body,
     headers: value.headers,
-    upgrade: record_opt_to_undefined(from_candid_opt_n12(_uploadFile, _downloadFile, value.upgrade)),
+    upgrade: record_opt_to_undefined(from_candid_opt_n3(_uploadFile, _downloadFile, value.upgrade)),
     status_code: value.status_code
   };
-}
-function from_candid_record_n8(_uploadFile, _downloadFile, value) {
-  return {
-    username: record_opt_to_undefined(from_candid_opt_n9(_uploadFile, _downloadFile, value.username)),
-    connected: value.connected
-  };
-}
-function from_candid_variant_n4(_uploadFile, _downloadFile, value) {
-  return "ok" in value ? {
-    __kind__: "ok",
-    ok: value.ok
-  } : "err" in value ? {
-    __kind__: "err",
-    err: value.err
-  } : value;
-}
-function from_candid_variant_n6(_uploadFile, _downloadFile, value) {
-  return "admin" in value ? "admin" : "user" in value ? "user" : "guest" in value ? "guest" : value;
-}
-function to_candid_UserRole_n1(_uploadFile, _downloadFile, value) {
-  return to_candid_variant_n2(_uploadFile, _downloadFile, value);
-}
-function to_candid_variant_n2(_uploadFile, _downloadFile, value) {
-  return value == "admin" ? {
-    admin: null
-  } : value == "user" ? {
-    user: null
-  } : value == "guest" ? {
-    guest: null
-  } : value;
 }
 function createActor(canisterId, _uploadFile, _downloadFile, options = {}) {
   const agent = options.agent || HttpAgent.createSync({
@@ -35780,10 +35524,10 @@ function Skeleton({ className, ...props }) {
     }
   );
 }
-const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-D_nsZr7n.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
-const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-Bm6pR3LU.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
-const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-BGPqaMvp.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
-const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-B5jon5L_.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
+const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-B2MnHi1p.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
+const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-CeJ9rhGX.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
+const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-pgJ0Ov9V.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
+const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-DX_-IkUt.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
 function PageLoader() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 py-16 space-y-4", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-12 w-64" }),

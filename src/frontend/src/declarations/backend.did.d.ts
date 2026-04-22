@@ -22,36 +22,8 @@ export interface HttpResponse {
   'upgrade' : [] | [boolean],
   'status_code' : number,
 }
-export interface OAuthStartParams {
-  'state' : string,
-  'codeVerifier' : string,
-  'authUrl' : string,
-}
-export type Result = { 'ok' : string } |
-  { 'err' : string };
-export interface TwitterStatus {
-  'username' : [] | [string],
-  'connected' : boolean,
-}
-export type UserRole = { 'admin' : null } |
-  { 'user' : null } |
-  { 'guest' : null };
 export interface _SERVICE {
-  '_initializeAccessControl' : ActorMethod<[], undefined>,
-  'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
-  'completeOAuth' : ActorMethod<[string, string], Result>,
-  'createBooking' : ActorMethod<
-    [string, string, bigint, string, string],
-    string
-  >,
-  'disconnectTwitter' : ActorMethod<[], undefined>,
-  'getCallerUserRole' : ActorMethod<[], UserRole>,
-  'getOAuthStartParams' : ActorMethod<[string], OAuthStartParams>,
-  'getTwitterStatus' : ActorMethod<[], TwitterStatus>,
-  'getXClientId' : ActorMethod<[], [] | [string]>,
   'http_request' : ActorMethod<[HttpRequest], HttpResponse>,
-  'isCallerAdmin' : ActorMethod<[], boolean>,
-  'setXClientId' : ActorMethod<[string], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

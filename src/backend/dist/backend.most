@@ -1,4 +1,4 @@
-// Version: 1.0.0
+// Version: 3.0.0
 type BookingId__892708521 = Text;
 type Booking__628731632 =
   {
@@ -24,15 +24,16 @@ type Node__462531142<K, V> =
   {#internal : Internal__112456046<K, V>; #leaf : Leaf__57387986<K, V>};
 type OAuthTokens__571533054 =
   {accessToken : Text; expiresAt : Int; refreshToken : Text};
+type OldAccessControlState__841599830 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__148053270<Principal, OldUserRole__889293160>
+  };
+type OldUserRole__889293160 = {#admin; #guest; #user};
 type PkceSession__521990126 =
   {codeVerifier : Text; redirectUri : Text; state : Text};
-type UserRole__1073662873 = {#admin; #guest; #user};
-actor {
-  stable accessControlState :
-    {
-      var adminAssigned : Bool;
-      userRoles : Map__148053270<Principal, UserRole__1073662873>
-    };
+actor ({
+  in accessControlState : OldAccessControlState__841599830;
   stable bookingCounter : {var value : Nat};
   stable bookings :
     {
@@ -45,11 +46,30 @@ actor {
       var root : Node__462531142<Principal, PkceSession__521990126>;
       var size : Nat__369452189
     };
-  stable rawRand : shared () -> async Blob;
+  in rawRand : shared () -> async Blob;
   stable tokenStore :
     {
       var root : Node__462531142<Principal, OAuthTokens__571533054>;
       var size : Nat__369452189
     };
   stable xClientId : {var value : ?Text}
-};
+}, {
+  stable bookingCounter : {var value : Nat};
+  stable bookings :
+    {
+      var blockIndex : Nat__369452189;
+      var blocks : [var [var ?Booking__628731632]];
+      var elementIndex : Nat__369452189
+    };
+  stable pkceSessionStore :
+    {
+      var root : Node__462531142<Principal, PkceSession__521990126>;
+      var size : Nat__369452189
+    };
+  stable tokenStore :
+    {
+      var root : Node__462531142<Principal, OAuthTokens__571533054>;
+      var size : Nat__369452189
+    };
+  stable xClientId : {var value : ?Text}
+}) ;

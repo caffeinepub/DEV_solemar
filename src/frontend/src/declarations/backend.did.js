@@ -8,21 +8,6 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
-export const UserRole = IDL.Variant({
-  'admin' : IDL.Null,
-  'user' : IDL.Null,
-  'guest' : IDL.Null,
-});
-export const Result = IDL.Variant({ 'ok' : IDL.Text, 'err' : IDL.Text });
-export const OAuthStartParams = IDL.Record({
-  'state' : IDL.Text,
-  'codeVerifier' : IDL.Text,
-  'authUrl' : IDL.Text,
-});
-export const TwitterStatus = IDL.Record({
-  'username' : IDL.Opt(IDL.Text),
-  'connected' : IDL.Bool,
-});
 export const HttpRequest = IDL.Record({
   'url' : IDL.Text,
   'method' : IDL.Text,
@@ -37,42 +22,12 @@ export const HttpResponse = IDL.Record({
 });
 
 export const idlService = IDL.Service({
-  '_initializeAccessControl' : IDL.Func([], [], []),
-  'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
-  'completeOAuth' : IDL.Func([IDL.Text, IDL.Text], [Result], []),
-  'createBooking' : IDL.Func(
-      [IDL.Text, IDL.Text, IDL.Nat, IDL.Text, IDL.Text],
-      [IDL.Text],
-      [],
-    ),
-  'disconnectTwitter' : IDL.Func([], [], []),
-  'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
-  'getOAuthStartParams' : IDL.Func([IDL.Text], [OAuthStartParams], []),
-  'getTwitterStatus' : IDL.Func([], [TwitterStatus], ['query']),
-  'getXClientId' : IDL.Func([], [IDL.Opt(IDL.Text)], ['query']),
   'http_request' : IDL.Func([HttpRequest], [HttpResponse], ['query']),
-  'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
-  'setXClientId' : IDL.Func([IDL.Text], [], []),
 });
 
 export const idlInitArgs = [];
 
 export const idlFactory = ({ IDL }) => {
-  const UserRole = IDL.Variant({
-    'admin' : IDL.Null,
-    'user' : IDL.Null,
-    'guest' : IDL.Null,
-  });
-  const Result = IDL.Variant({ 'ok' : IDL.Text, 'err' : IDL.Text });
-  const OAuthStartParams = IDL.Record({
-    'state' : IDL.Text,
-    'codeVerifier' : IDL.Text,
-    'authUrl' : IDL.Text,
-  });
-  const TwitterStatus = IDL.Record({
-    'username' : IDL.Opt(IDL.Text),
-    'connected' : IDL.Bool,
-  });
   const HttpRequest = IDL.Record({
     'url' : IDL.Text,
     'method' : IDL.Text,
@@ -87,22 +42,7 @@ export const idlFactory = ({ IDL }) => {
   });
   
   return IDL.Service({
-    '_initializeAccessControl' : IDL.Func([], [], []),
-    'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
-    'completeOAuth' : IDL.Func([IDL.Text, IDL.Text], [Result], []),
-    'createBooking' : IDL.Func(
-        [IDL.Text, IDL.Text, IDL.Nat, IDL.Text, IDL.Text],
-        [IDL.Text],
-        [],
-      ),
-    'disconnectTwitter' : IDL.Func([], [], []),
-    'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
-    'getOAuthStartParams' : IDL.Func([IDL.Text], [OAuthStartParams], []),
-    'getTwitterStatus' : IDL.Func([], [TwitterStatus], ['query']),
-    'getXClientId' : IDL.Func([], [IDL.Opt(IDL.Text)], ['query']),
     'http_request' : IDL.Func([HttpRequest], [HttpResponse], ['query']),
-    'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
-    'setXClientId' : IDL.Func([IDL.Text], [], []),
   });
 };
 

@@ -95,238 +95,40 @@ export interface HttpRequest {
     body: Uint8Array;
     headers: Array<[string, string]>;
 }
-export type Result = {
-    __kind__: "ok";
-    ok: string;
-} | {
-    __kind__: "err";
-    err: string;
-};
-export interface TwitterStatus {
-    username?: string;
-    connected: boolean;
-}
-export interface OAuthStartParams {
-    state: string;
-    codeVerifier: string;
-    authUrl: string;
-}
 export interface HttpResponse {
     body: Uint8Array;
     headers: Array<[string, string]>;
     upgrade?: boolean;
     status_code: number;
 }
-export enum UserRole {
-    admin = "admin",
-    user = "user",
-    guest = "guest"
-}
 export interface backendInterface {
-    _initializeAccessControl(): Promise<void>;
-    assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
-    completeOAuth(code: string, state: string): Promise<Result>;
-    createBooking(checkIn: string, checkOut: string, guestCount: bigint, name: string, email: string): Promise<string>;
-    disconnectTwitter(): Promise<void>;
-    getCallerUserRole(): Promise<UserRole>;
-    getOAuthStartParams(redirectUri: string): Promise<OAuthStartParams>;
-    getTwitterStatus(): Promise<TwitterStatus>;
-    getXClientId(): Promise<string | null>;
     http_request(_req: HttpRequest): Promise<HttpResponse>;
-    isCallerAdmin(): Promise<boolean>;
-    setXClientId(clientId: string): Promise<void>;
 }
-import type { HttpResponse as _HttpResponse, Result as _Result, TwitterStatus as _TwitterStatus, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
+import type { HttpResponse as _HttpResponse } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
-    async _initializeAccessControl(): Promise<void> {
-        if (this.processError) {
-            try {
-                const result = await this.actor._initializeAccessControl();
-                return result;
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor._initializeAccessControl();
-            return result;
-        }
-    }
-    async assignCallerUserRole(arg0: Principal, arg1: UserRole): Promise<void> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n1(this._uploadFile, this._downloadFile, arg1));
-                return result;
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n1(this._uploadFile, this._downloadFile, arg1));
-            return result;
-        }
-    }
-    async completeOAuth(arg0: string, arg1: string): Promise<Result> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.completeOAuth(arg0, arg1);
-                return from_candid_Result_n3(this._uploadFile, this._downloadFile, result);
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.completeOAuth(arg0, arg1);
-            return from_candid_Result_n3(this._uploadFile, this._downloadFile, result);
-        }
-    }
-    async createBooking(arg0: string, arg1: string, arg2: bigint, arg3: string, arg4: string): Promise<string> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.createBooking(arg0, arg1, arg2, arg3, arg4);
-                return result;
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.createBooking(arg0, arg1, arg2, arg3, arg4);
-            return result;
-        }
-    }
-    async disconnectTwitter(): Promise<void> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.disconnectTwitter();
-                return result;
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.disconnectTwitter();
-            return result;
-        }
-    }
-    async getCallerUserRole(): Promise<UserRole> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.getCallerUserRole();
-                return from_candid_UserRole_n5(this._uploadFile, this._downloadFile, result);
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.getCallerUserRole();
-            return from_candid_UserRole_n5(this._uploadFile, this._downloadFile, result);
-        }
-    }
-    async getOAuthStartParams(arg0: string): Promise<OAuthStartParams> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.getOAuthStartParams(arg0);
-                return result;
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.getOAuthStartParams(arg0);
-            return result;
-        }
-    }
-    async getTwitterStatus(): Promise<TwitterStatus> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.getTwitterStatus();
-                return from_candid_TwitterStatus_n7(this._uploadFile, this._downloadFile, result);
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.getTwitterStatus();
-            return from_candid_TwitterStatus_n7(this._uploadFile, this._downloadFile, result);
-        }
-    }
-    async getXClientId(): Promise<string | null> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.getXClientId();
-                return from_candid_opt_n9(this._uploadFile, this._downloadFile, result);
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.getXClientId();
-            return from_candid_opt_n9(this._uploadFile, this._downloadFile, result);
-        }
-    }
     async http_request(arg0: HttpRequest): Promise<HttpResponse> {
         if (this.processError) {
             try {
                 const result = await this.actor.http_request(arg0);
-                return from_candid_HttpResponse_n10(this._uploadFile, this._downloadFile, result);
+                return from_candid_HttpResponse_n1(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.http_request(arg0);
-            return from_candid_HttpResponse_n10(this._uploadFile, this._downloadFile, result);
-        }
-    }
-    async isCallerAdmin(): Promise<boolean> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.isCallerAdmin();
-                return result;
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.isCallerAdmin();
-            return result;
-        }
-    }
-    async setXClientId(arg0: string): Promise<void> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.setXClientId(arg0);
-                return result;
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.setXClientId(arg0);
-            return result;
+            return from_candid_HttpResponse_n1(this._uploadFile, this._downloadFile, result);
         }
     }
 }
-function from_candid_HttpResponse_n10(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _HttpResponse): HttpResponse {
-    return from_candid_record_n11(_uploadFile, _downloadFile, value);
+function from_candid_HttpResponse_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _HttpResponse): HttpResponse {
+    return from_candid_record_n2(_uploadFile, _downloadFile, value);
 }
-function from_candid_Result_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Result): Result {
-    return from_candid_variant_n4(_uploadFile, _downloadFile, value);
-}
-function from_candid_TwitterStatus_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _TwitterStatus): TwitterStatus {
-    return from_candid_record_n8(_uploadFile, _downloadFile, value);
-}
-function from_candid_UserRole_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserRole): UserRole {
-    return from_candid_variant_n6(_uploadFile, _downloadFile, value);
-}
-function from_candid_opt_n12(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [boolean]): boolean | null {
+function from_candid_opt_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [boolean]): boolean | null {
     return value.length === 0 ? null : value[0];
 }
-function from_candid_opt_n9(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [string]): string | null {
-    return value.length === 0 ? null : value[0];
-}
-function from_candid_record_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_record_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     body: Uint8Array;
     headers: Array<[string, string]>;
     upgrade: [] | [boolean];
@@ -340,67 +142,9 @@ function from_candid_record_n11(_uploadFile: (file: ExternalBlob) => Promise<Uin
     return {
         body: value.body,
         headers: value.headers,
-        upgrade: record_opt_to_undefined(from_candid_opt_n12(_uploadFile, _downloadFile, value.upgrade)),
+        upgrade: record_opt_to_undefined(from_candid_opt_n3(_uploadFile, _downloadFile, value.upgrade)),
         status_code: value.status_code
     };
-}
-function from_candid_record_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
-    username: [] | [string];
-    connected: boolean;
-}): {
-    username?: string;
-    connected: boolean;
-} {
-    return {
-        username: record_opt_to_undefined(from_candid_opt_n9(_uploadFile, _downloadFile, value.username)),
-        connected: value.connected
-    };
-}
-function from_candid_variant_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
-    ok: string;
-} | {
-    err: string;
-}): {
-    __kind__: "ok";
-    ok: string;
-} | {
-    __kind__: "err";
-    err: string;
-} {
-    return "ok" in value ? {
-        __kind__: "ok",
-        ok: value.ok
-    } : "err" in value ? {
-        __kind__: "err",
-        err: value.err
-    } : value;
-}
-function from_candid_variant_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
-    admin: null;
-} | {
-    user: null;
-} | {
-    guest: null;
-}): UserRole {
-    return "admin" in value ? UserRole.admin : "user" in value ? UserRole.user : "guest" in value ? UserRole.guest : value;
-}
-function to_candid_UserRole_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): _UserRole {
-    return to_candid_variant_n2(_uploadFile, _downloadFile, value);
-}
-function to_candid_variant_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): {
-    admin: null;
-} | {
-    user: null;
-} | {
-    guest: null;
-} {
-    return value == UserRole.admin ? {
-        admin: null
-    } : value == UserRole.user ? {
-        user: null
-    } : value == UserRole.guest ? {
-        guest: null
-    } : value;
 }
 export interface CreateActorOptions {
     agent?: Agent;

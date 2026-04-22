@@ -32,5 +32,4 @@ args = [
 [dependencies]
 core = "2.4.0"
 x-client = "0.1.2"
-caffeineai-authorization = "0.1.1"
 sha2 = "0.1.14"
