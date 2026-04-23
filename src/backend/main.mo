@@ -65,7 +65,11 @@ actor {
   // Update-call variant of isCallerAdmin so the canister sees the real caller identity
   // (query calls are unauthenticated on ICP and always receive the anonymous principal).
   public shared ({ caller }) func isCallerAdminUpdate() : async Bool {
-    AccessControl.isAdmin(accessControlState, caller);
+    try {
+      return AccessControl.isAdmin(accessControlState, caller);
+    } catch (_) {
+      return false;
+    };
   };
 
   public query func http_request(_req : HttpRequest) : async HttpResponse {
