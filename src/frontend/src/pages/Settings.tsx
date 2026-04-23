@@ -401,7 +401,7 @@ function CanisterStatePanel() {
         </div>
       ) : (
         <pre
-          className="overflow-auto rounded-lg bg-gray-900 text-green-400 font-mono text-xs p-4 max-h-[28rem] whitespace-pre-wrap break-all"
+          className="overflow-auto rounded-lg bg-foreground/5 text-primary font-mono text-xs p-4 max-h-[28rem] whitespace-pre-wrap break-all border border-border"
           data-ocid="settings.canister_state.output"
         >
           {stateText ?? "(no data)"}
@@ -434,7 +434,7 @@ export default function Settings() {
       </div>
 
       {/* Two-column layout: OAuth settings left, canister state right */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         {/* Left column: existing OAuth sections */}
         <div className="space-y-8">
           <ClientIdSection />
