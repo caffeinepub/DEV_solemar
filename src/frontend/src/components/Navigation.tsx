@@ -84,7 +84,7 @@ export function Navigation({ initialized: _initialized }: NavigationProps) {
                 "transition-smooth",
               )}
             >
-              {claimingAdmin ? "Claiming..." : "Claim Admin"}
+              {claimingAdmin ? "Setting Admin..." : "Set Me As Admin"}
             </button>
           )}
           {isInitializing ? (
