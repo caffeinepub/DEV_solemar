@@ -19,13 +19,7 @@ actor {
   // claimed the slot (or if userRoles has no admin), so the first real login
   // can be promoted to admin via the first-caller-wins pattern.
   system func postupgrade() {
-    let hasRealAdmin = accessControlState.userRoles.entries().find(
-      func((_, role)) { role == #admin }
-    ) != null;
-    if (not hasRealAdmin) {
-      accessControlState.adminAssigned := false;
-      accessControlState.userRoles.clear();
-    };
+    // admin state is managed by _initializeAccessControl first-caller-wins logic
   };
   include MixinAuthorization(accessControlState);
 
