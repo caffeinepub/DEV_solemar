@@ -52,5 +52,6 @@ export interface backendInterface {
     getXClientId(): Promise<string | null>;
     http_request(_req: HttpRequest): Promise<HttpResponse>;
     isCallerAdmin(): Promise<boolean>;
+    isCallerAdminUpdate(): Promise<boolean>;
     setXClientId(clientId: string): Promise<void>;
 }

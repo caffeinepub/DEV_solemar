@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-BOIf3b8D.js","assets/button-4lv1N5pd.js","assets/proxy-BLeRmD6Z.js","assets/index-CA1oYf5O.js","assets/users-D8w0vg5x.js","assets/loader-circle-BBM5zHGL.js","assets/index-Q4IjeQ7Z.js","assets/BookingConfirm-Be1gxIGx.js","assets/badge-BZ9_3XSp.js","assets/circle-check-big-DkamTEu7.js","assets/twitter-gczou83n.js","assets/OAuthCallback-DO1_Re5H.js","assets/circle-x-DYPm7bzG.js","assets/Settings-xIIQxmwx.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Home-DyabfsWC.js","assets/button-cLsLcmzE.js","assets/proxy-BmN9qDhK.js","assets/index-_LBV5fVX.js","assets/users-CSdxmww4.js","assets/loader-circle-Cdj3KxL6.js","assets/index-B1FygfPE.js","assets/BookingConfirm-BsnHm9K9.js","assets/badge-BevDLbwm.js","assets/circle-check-big-DrScSMIM.js","assets/twitter-Cx3jGy5d.js","assets/OAuthCallback-Dj2ah_Wm.js","assets/circle-x-CFfKdbxh.js","assets/Settings-C-thDRr4.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -32602,6 +32602,7 @@ Service({
   "getXClientId": Func([], [Opt(Text)], ["query"]),
   "http_request": Func([HttpRequest], [HttpResponse], ["query"]),
   "isCallerAdmin": Func([], [Bool], ["query"]),
+  "isCallerAdminUpdate": Func([], [Bool], []),
   "setXClientId": Func([Text], [], [])
 });
 const idlFactory = ({ IDL: IDL2 }) => {
@@ -32649,6 +32650,7 @@ const idlFactory = ({ IDL: IDL2 }) => {
     "getXClientId": IDL2.Func([], [IDL2.Opt(IDL2.Text)], ["query"]),
     "http_request": IDL2.Func([HttpRequest2], [HttpResponse2], ["query"]),
     "isCallerAdmin": IDL2.Func([], [IDL2.Bool], ["query"]),
+    "isCallerAdminUpdate": IDL2.Func([], [IDL2.Bool], []),
     "setXClientId": IDL2.Func([IDL2.Text], [], [])
   });
 };
@@ -32865,6 +32867,20 @@ class Backend {
       }
     } else {
       const result = await this.actor.isCallerAdmin();
+      return result;
+    }
+  }
+  async isCallerAdminUpdate() {
+    if (this.processError) {
+      try {
+        const result = await this.actor.isCallerAdminUpdate();
+        return result;
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.isCallerAdminUpdate();
       return result;
     }
   }
@@ -35616,56 +35632,20 @@ function useIsAdmin(_initialized) {
     // Include the principal text so cache busts when identity changes (login / logout)
     queryKey: ["isCallerAdmin", principalText, !!actor],
     queryFn: async () => {
-      if (!actor) {
-        console.log("[Admin] queryFn: no actor, returning false");
+      if (!actor || isAnonymous) {
+        console.log(
+          "[Admin] queryFn: no actor or anonymous principal, returning false"
+        );
         return false;
       }
       try {
-        try {
-          const roleBefore = await actor.getCallerUserRole();
-          console.log(
-            "[Admin] TRACE pre-init: getCallerUserRole() =",
-            JSON.stringify(roleBefore),
-            "for principal:",
-            principalText
-          );
-        } catch (roleErr) {
-          console.log(
-            "[Admin] TRACE pre-init: getCallerUserRole() threw:",
-            roleErr,
-            "for principal:",
-            principalText
-          );
-        }
         console.log(
-          "[Admin] queryFn: calling _initializeAccessControl() for principal:",
-          principalText,
-          "(note: useActor may have already called this internally)"
-        );
-        await actor._initializeAccessControl();
-        console.log(
-          "[Admin] queryFn: _initializeAccessControl() completed for principal:",
+          "[Admin] queryFn: calling isCallerAdminUpdate() for principal:",
           principalText
         );
-        try {
-          const roleAfter = await actor.getCallerUserRole();
-          console.log(
-            "[Admin] TRACE post-init: getCallerUserRole() =",
-            JSON.stringify(roleAfter),
-            "for principal:",
-            principalText
-          );
-        } catch (roleErr) {
-          console.log(
-            "[Admin] TRACE post-init: getCallerUserRole() threw:",
-            roleErr,
-            "for principal:",
-            principalText
-          );
-        }
-        const result = await actor.isCallerAdmin();
+        const result = await actor.isCallerAdminUpdate();
         console.log(
-          "[Admin] isCallerAdmin result:",
+          "[Admin] isCallerAdminUpdate result:",
           result,
           "for principal:",
           principalText,
@@ -35677,7 +35657,7 @@ function useIsAdmin(_initialized) {
         return result;
       } catch (error) {
         console.log(
-          "[Admin] isCallerAdmin error:",
+          "[Admin] isCallerAdminUpdate error:",
           error,
           "for principal:",
           principalText
@@ -35870,10 +35850,10 @@ function Skeleton({ className, ...props }) {
     }
   );
 }
-const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-BOIf3b8D.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
-const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-Be1gxIGx.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
-const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-DO1_Re5H.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
-const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-xIIQxmwx.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
+const HomePage = reactExports.lazy(() => __vitePreload(() => import("./Home-DyabfsWC.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0));
+const BookingConfirmPage = reactExports.lazy(() => __vitePreload(() => import("./BookingConfirm-BsnHm9K9.js"), true ? __vite__mapDeps([7,8,1,2,9,4,10]) : void 0));
+const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallback-Dj2ah_Wm.js"), true ? __vite__mapDeps([11,1,2,10,6,5,9,12]) : void 0));
+const SettingsPage = reactExports.lazy(() => __vitePreload(() => import("./Settings-C-thDRr4.js"), true ? __vite__mapDeps([13,8,1,3,12,5,10]) : void 0));
 function PageLoader() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 py-16 space-y-4", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-12 w-64" }),

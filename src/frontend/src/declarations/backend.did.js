@@ -53,6 +53,7 @@ export const idlService = IDL.Service({
   'getXClientId' : IDL.Func([], [IDL.Opt(IDL.Text)], ['query']),
   'http_request' : IDL.Func([HttpRequest], [HttpResponse], ['query']),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+  'isCallerAdminUpdate' : IDL.Func([], [IDL.Bool], []),
   'setXClientId' : IDL.Func([IDL.Text], [], []),
 });
 
@@ -104,6 +105,7 @@ export const idlFactory = ({ IDL }) => {
     'getXClientId' : IDL.Func([], [IDL.Opt(IDL.Text)], ['query']),
     'http_request' : IDL.Func([HttpRequest], [HttpResponse], ['query']),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'isCallerAdminUpdate' : IDL.Func([], [IDL.Bool], []),
     'setXClientId' : IDL.Func([IDL.Text], [], []),
   });
 };

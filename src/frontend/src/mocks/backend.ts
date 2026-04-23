@@ -25,6 +25,7 @@ export const mockBackend: backendInterface = {
     status_code: 200,
   }),
   isCallerAdmin: async () => false,
+  isCallerAdminUpdate: async () => false,
   setXClientId: async (_clientId) => undefined,
   forceSetAdmin: (_p) => Promise.resolve(undefined),
 };

@@ -52,6 +52,7 @@ export interface _SERVICE {
   'getXClientId' : ActorMethod<[], [] | [string]>,
   'http_request' : ActorMethod<[HttpRequest], HttpResponse>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
+  'isCallerAdminUpdate' : ActorMethod<[], boolean>,
   'setXClientId' : ActorMethod<[string], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;

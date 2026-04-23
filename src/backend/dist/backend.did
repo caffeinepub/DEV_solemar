@@ -54,5 +54,6 @@ service : {
   getXClientId: () -> (opt text) query;
   http_request: (_req: HttpRequest) -> (HttpResponse) query;
   isCallerAdmin: () -> (bool) query;
+  isCallerAdminUpdate: () -> (bool);
   setXClientId: (clientId: text) -> ();
 }

@@ -13,7 +13,7 @@ import TwitterApi "mixins/twitter-api";
 // 
 
 actor {
-  stable var accessControlState = AccessControl.initState();
+  var accessControlState = AccessControl.initState();
 
   // One-time postupgrade hook: reset adminAssigned if the anonymous principal
   // claimed the slot (or if userRoles has no admin), so the first real login
@@ -60,6 +60,12 @@ actor {
   public shared func forceSetAdmin(p : Principal) : async () {
     accessControlState.userRoles.add(p, #admin);
     accessControlState.adminAssigned := true;
+  };
+
+  // Update-call variant of isCallerAdmin so the canister sees the real caller identity
+  // (query calls are unauthenticated on ICP and always receive the anonymous principal).
+  public shared ({ caller }) func isCallerAdminUpdate() : async Bool {
+    AccessControl.isAdmin(accessControlState, caller);
   };
 
   public query func http_request(_req : HttpRequest) : async HttpResponse {
