@@ -28,4 +28,5 @@ export const mockBackend: backendInterface = {
   isCallerAdminUpdate: async () => false,
   setXClientId: async (_clientId) => undefined,
   forceSetAdmin: (_p) => Promise.resolve(undefined),
+  state: () => Promise.resolve("mock state"),
 };

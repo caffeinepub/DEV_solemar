@@ -11,6 +11,7 @@ import {
   KeyRound,
   Loader2,
   ShieldAlert,
+  Terminal,
   Twitter,
   XCircle,
 } from "lucide-react";
@@ -345,6 +346,71 @@ function TwitterConnectionSection() {
   );
 }
 
+// ── Canister State Panel ──────────────────────────────────────────────────────
+function CanisterStatePanel() {
+  const { actor, isFetching } = useBackend();
+
+  const {
+    data: stateText,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["canisterState"],
+    queryFn: async () => {
+      if (!actor) return null;
+      return (actor as unknown as { state: () => Promise<string> }).state();
+    },
+    enabled: !!actor && !isFetching,
+    refetchInterval: 5000,
+  });
+
+  return (
+    <section
+      className="card-warm p-6 space-y-5 h-full"
+      data-ocid="settings.canister_state.panel"
+    >
+      <div className="flex items-start gap-3">
+        <Terminal className="w-5 h-5 mt-0.5 text-primary flex-shrink-0" />
+        <div>
+          <h3 className="font-display text-lg font-semibold text-foreground">
+            Canister State
+          </h3>
+          <p className="text-sm text-muted-foreground mt-0.5">
+            Live debug snapshot. Refreshes every 5 seconds.
+          </p>
+        </div>
+      </div>
+
+      <Separator className="bg-border/60" />
+
+      {isLoading ? (
+        <div
+          className="flex items-center gap-2 text-sm text-muted-foreground"
+          data-ocid="settings.canister_state.loading_state"
+        >
+          <Loader2 className="w-4 h-4 animate-spin" />
+          Loading state…
+        </div>
+      ) : error ? (
+        <div
+          className="flex items-center gap-2 text-sm text-destructive bg-destructive/10 rounded-lg px-3 py-2"
+          data-ocid="settings.canister_state.error_state"
+        >
+          <XCircle className="w-4 h-4 flex-shrink-0" />
+          Failed to load canister state.
+        </div>
+      ) : (
+        <pre
+          className="overflow-auto rounded-lg bg-gray-900 text-green-400 font-mono text-xs p-4 max-h-[28rem] whitespace-pre-wrap break-all"
+          data-ocid="settings.canister_state.output"
+        >
+          {stateText ?? "(no data)"}
+        </pre>
+      )}
+    </section>
+  );
+}
+
 // ── Main Settings page ────────────────────────────────────────────────────────
 export default function Settings() {
   const { isAdmin, isLoading } = useIsAdmin();
@@ -354,11 +420,11 @@ export default function Settings() {
 
   return (
     <main
-      className="container mx-auto px-4 py-12 max-w-2xl space-y-8"
+      className="container mx-auto px-4 py-12 max-w-6xl"
       data-ocid="settings.page"
     >
       {/* Page header */}
-      <div className="space-y-1">
+      <div className="space-y-1 mb-8">
         <h1 className="font-display text-3xl font-bold text-foreground">
           Settings
         </h1>
@@ -367,8 +433,19 @@ export default function Settings() {
         </p>
       </div>
 
-      <ClientIdSection />
-      <TwitterConnectionSection />
+      {/* Two-column layout: OAuth settings left, canister state right */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        {/* Left column: existing OAuth sections */}
+        <div className="space-y-8">
+          <ClientIdSection />
+          <TwitterConnectionSection />
+        </div>
+
+        {/* Right column: canister state debug panel */}
+        <div>
+          <CanisterStatePanel />
+        </div>
+      </div>
     </main>
   );
 }

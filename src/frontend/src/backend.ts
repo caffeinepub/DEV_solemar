@@ -137,6 +137,7 @@ export interface backendInterface {
     isCallerAdmin(): Promise<boolean>;
     isCallerAdminUpdate(): Promise<boolean>;
     setXClientId(clientId: string): Promise<void>;
+    state(): Promise<string>;
 }
 import type { HttpResponse as _HttpResponse, Result as _Result, TwitterStatus as _TwitterStatus, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
@@ -334,6 +335,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.setXClientId(arg0);
+            return result;
+        }
+    }
+    async state(): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.state();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.state();
             return result;
         }
     }

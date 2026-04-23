@@ -66,6 +66,17 @@ actor {
     };
   };
 
+  public query func state() : async Text {
+    debug_show {
+      accessControlState;
+      bookings;
+      bookingCounter;
+      tokenStore;
+      pkceSessionStore;
+      xClientId;
+    }
+  };
+
   public query func http_request(_req : HttpRequest) : async HttpResponse {
     {
       status_code = 200;

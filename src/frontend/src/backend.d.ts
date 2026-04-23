@@ -54,4 +54,5 @@ export interface backendInterface {
     isCallerAdmin(): Promise<boolean>;
     isCallerAdminUpdate(): Promise<boolean>;
     setXClientId(clientId: string): Promise<void>;
+    state(): Promise<string>;
 }

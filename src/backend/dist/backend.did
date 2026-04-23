@@ -56,4 +56,5 @@ service : {
   isCallerAdmin: () -> (bool) query;
   isCallerAdminUpdate: () -> (bool);
   setXClientId: (clientId: text) -> ();
+  state: () -> (text) query;
 }

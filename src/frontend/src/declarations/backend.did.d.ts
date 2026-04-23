@@ -54,6 +54,7 @@ export interface _SERVICE {
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'isCallerAdminUpdate' : ActorMethod<[], boolean>,
   'setXClientId' : ActorMethod<[string], undefined>,
+  'state' : ActorMethod<[], string>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];
