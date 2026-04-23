@@ -1,3 +1,4 @@
+// v26 rebuild — force new bundle hash; all logic already correct in source
 import { useInternetIdentity } from "@caffeineai/core-infrastructure";
 import { useQuery } from "@tanstack/react-query";
 import { useBackend } from "./use-backend";
