@@ -13,7 +13,7 @@ import TwitterApi "mixins/twitter-api";
 // 
 
 actor {
-  var accessControlState = AccessControl.initState();
+  stable var accessControlState = AccessControl.initState();
 
   // One-time postupgrade hook: reset adminAssigned if the anonymous principal
   // claimed the slot (or if userRoles has no admin), so the first real login
