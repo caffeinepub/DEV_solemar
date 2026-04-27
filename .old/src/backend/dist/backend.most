@@ -1,0 +1,55 @@
+// Version: 1.0.0
+type BookingId__892708521 = Text;
+type Booking__628731632 =
+  {
+    checkIn : Text;
+    checkOut : Text;
+    createdAt : Int;
+    email : Text;
+    guestCount : Nat;
+    id : BookingId__892708521;
+    name : Text
+  };
+type Data__45091661<K, V> = {var count : Nat__369452189; kvs : [var ?(K, V)]};
+type Internal__112456046<K, V> =
+  {children : [var ?Node__462531142<K, V>]; data : Data__45091661<K, V>};
+type Leaf__57387986<K, V> = {data : Data__45091661<K, V>};
+type Map__148053270<K, V> = Map__706432854<K, V>;
+type Map__528685958<K, V> =
+  {var root : Node__462531142<K, V>; var size : Nat__369452189};
+type Map__706432854<K, V> = Map__528685958<K, V>;
+type Nat__369452189 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__462531142<K, V> =
+  {#internal : Internal__112456046<K, V>; #leaf : Leaf__57387986<K, V>};
+type OAuthTokens__571533054 =
+  {accessToken : Text; expiresAt : Int; refreshToken : Text};
+type PkceSession__521990126 =
+  {codeVerifier : Text; redirectUri : Text; state : Text};
+type UserRole__1073662873 = {#admin; #guest; #user};
+actor {
+  stable var accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__148053270<Principal, UserRole__1073662873>
+    };
+  stable bookingCounter : {var value : Nat};
+  stable bookings :
+    {
+      var blockIndex : Nat__369452189;
+      var blocks : [var [var ?Booking__628731632]];
+      var elementIndex : Nat__369452189
+    };
+  stable pkceSessionStore :
+    {
+      var root : Node__462531142<Principal, PkceSession__521990126>;
+      var size : Nat__369452189
+    };
+  stable rawRand : shared () -> async Blob;
+  stable tokenStore :
+    {
+      var root : Node__462531142<Principal, OAuthTokens__571533054>;
+      var size : Nat__369452189
+    };
+  stable xClientId : {var value : ?Text}
+};
